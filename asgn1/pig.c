@@ -25,7 +25,7 @@ int main(void) {
     scanf("%d", &seed);
     if (seed < 0 || seed > UINT_MAX) {
         fprintf(stderr, "Invalid random seed. Using 2021 instead.\n");
-     	seed = 2021;
+        seed = 2021;
     }
 
     srand(seed);
@@ -41,7 +41,8 @@ int main(void) {
             if (player_counter >= players) {
                 player_counter = 0;
             }
-            fprintf(stderr, " pig lands on side\n%s rolls the pig...", names[player_counter]);
+            fprintf(stderr, " pig lands on side\n");
+	    fprintf(stderr, "%s rolls the pig...", names[player_counter]);
         }
         if (pig[rng] == RAZORBACK) {
             fprintf(stderr, " pig lands on back");
