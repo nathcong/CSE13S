@@ -11,11 +11,8 @@ const Position pig[7] = { SIDE, SIDE, RAZORBACK, TROTTER, SNOUTER, JOWLER, JOWLE
 
 int main(void) {
     int players = 0;
-    unsigned int seed = 0;
-
+    unsigned int seed = 2021;
     int points[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    int top_points = 0;
-    int top_points_holder = 0;
     int player_counter = 0;
 
     fprintf(stderr, "How many players? ");
@@ -28,20 +25,17 @@ int main(void) {
     scanf("%d", &seed);
     if (seed < 0 || seed > UINT_MAX) {
         fprintf(stderr, "Invalid random seed. Using 2021 instead.\n");
-        seed = 2021;
+     	seed = 2021;
     }
 
     srand(seed);
 
     fprintf(stderr, "%s rolls the pig...", names[player_counter]);
 
-    while (top_points < 100) {
+    while (points[player_counter] < 100) {
+
         int rng = random() % 7;
 
-        if (points[player_counter] > top_points) {
-            top_points = points[player_counter];
-            top_points_holder = player_counter;
-        }
         if (pig[rng] == SIDE) {
             ++player_counter;
             if (player_counter >= players) {
