@@ -41,23 +41,23 @@ int main(void) {
             if (player_counter >= players) {
                 player_counter = 0;
             }
-            fprintf(stderr, " pig lands on side\n");
+            fprintf(stderr, "pig lands on side \n");
 	    fprintf(stderr, "%s rolls the pig...", names[player_counter]);
         }
         if (pig[rng] == RAZORBACK) {
-            fprintf(stderr, " pig lands on back");
+            fprintf(stderr, "pig lands on back ");
             points[player_counter] = points[player_counter] + 10;
         }
         if (pig[rng] == TROTTER) {
-            fprintf(stderr, " pig lands upright");
+            fprintf(stderr, "pig lands upright ");
             points[player_counter] = points[player_counter] + 10;
         }
         if (pig[rng] == SNOUTER) {
-            fprintf(stderr, " pig lands on snout");
+            fprintf(stderr, "pig lands on snout ");
             points[player_counter] = points[player_counter] + 15;
         }
         if (pig[rng] == JOWLER) {
-            fprintf(stderr, " pig lands on ear");
+            fprintf(stderr, "pig lands on ear ");
             points[player_counter] = points[player_counter] + 5;
         }
     }
