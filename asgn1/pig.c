@@ -19,8 +19,12 @@ const Position pig[7] = {
 int main(void) {
 	int players = 0;
 	unsigned int seed = 0;
-	int toppoint = 0;
-
+	
+	unsigned int points[10];
+	int top_points = 0;
+	int top_points_holder = 0;
+	int player_counter = 0;
+	int rng = 0;	
 
 	fprintf(stderr, "How many players? ");
 	scanf("%d", &players);
@@ -35,8 +39,39 @@ int main(void) {
 		seed = 2021;
 	}
 	
-	while (toppoint < 100) {
+	while (top_points < 100) {
 		srand(seed);
+		rng = rand() % 7;
+		fprintf(stderr, "%d points", points[player_counter]);
+
+
+		fprintf(stderr, "%s rolls the pig...", names[player_counter]);
+		if (points[player_counter] > top_points) {
+			top_points = points[player_counter];
+			top_points_holder = player_counter;
+		}
+		if (pig[rng] == SIDE) {
+			fprintf(stderr, " pig lands on side\n");
+			++player_counter;
+		}
+		if (pig[rng] == RAZORBACK) {
+			fprintf(stderr, " pig lands on back");
+			points[player_counter] += 10;
+		}
+		if (pig[rng] == TROTTER) {
+			fprintf(stderr, " pig lands upright");
+			points[player_counter] += 10;
+		}
+		if (pig[rng] == SNOUTER) {
+			fprintf(stderr, " pig lands on snout");
+			points[player_counter] += 15;
+		}
+		if (pig[rng] == JOWLER) {
+			fprintf(stderr, " pig lands on ear");
+			points[player_counter] += 5;
+		}
+		fprintf(stderr, "%d points", points[player_counter]);
+		fprintf(stderr, "%s wins with %d points!\n", names[player_counter], points[player_counter]);
 	}
 	return 0;
 }
