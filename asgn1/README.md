@@ -7,12 +7,12 @@ This program runs a version of the dice game Pass the Pigs, by David Moffat.  Th
 
 ## Program Compiling
 
-To compile the program into an executable file, input the following command: *make all*  
+To compile the program into an executable file, input the following command: *make all*.  
 Following this an executable binary file, titled "pig" will be generated in the directory.
 
 ## How to run this program
 
-After following the compiling instructions above, input the following command: *./pig*  
+After following the compiling instructions above, input the following command: *./pig*.  
 The program will proceed to begin and you will be asked to input a valid number of players, followed by a valid seed number for the random number generator.
 
 ## Known bugs
