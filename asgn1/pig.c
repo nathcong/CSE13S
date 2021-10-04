@@ -40,8 +40,9 @@ int main(void) {
 
     while (points[player_counter] < 100) { /* while any player's score is under 100 points */
 
-        int rng = random() % 7; /* usage of modulus operations to keep number generated between 0 and 6 */
- 
+        int rng = random()
+                  % 7; /* usage of modulus operations to keep number generated between 0 and 6 */
+
         /* conditionals check position correspondence to number generated */
 
         if (pig[rng] == SIDE) { /* moves to the next player's turn */
