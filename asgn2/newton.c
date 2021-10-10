@@ -9,7 +9,7 @@ double sqrt_newton(double x) {
     double z = 0.0;
     while (absolute((y - z)) > EPSILON) {
         z = y;
-        y = 0.5 * ((z + x) / z);
+        y = 0.5 * (z + (x / z));
         ++total_terms;
     }
     return y;
