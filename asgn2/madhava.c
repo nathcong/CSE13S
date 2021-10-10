@@ -21,7 +21,7 @@ double pi_madhava(void) {
         term = current * sqrt_newton(12);
         return term;
 }
-int pi_euler_terms() {
+int pi_madhava_terms() {
         return total_madhava_terms;
 }
 
