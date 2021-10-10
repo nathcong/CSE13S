@@ -15,7 +15,6 @@ double pi_madhava(void) {
                 denominator = (2.0 * k) + 1.0;
                 previous = current;
                 current += (1.0 / (exponent * denominator));
-                fprintf(stdout, "%f, %f, %f, %d\n",  current, denominator, exponent, k);
                 k++;
                 total_madhava_terms++;
         }
