@@ -1,5 +1,4 @@
 #include "mathlib.h"
-
 #include <stdio.h>
 
 unsigned long static total_euler_terms = 0;
@@ -17,8 +16,7 @@ double pi_euler(void) {
         k++;
         total_euler_terms++;
     }
-    term = 6 * current;
-    term = sqrt_newton(term);
+    term = sqrt_newton(6 * current);
     return term;
 }
 
