@@ -17,7 +17,7 @@ double pi_euler(void) {
                 total_euler_terms++;
         }
         term = 6 * current;
-        term = sqrt(term);
+        term = sqrt_newton(term);
         return term;
 }
 
