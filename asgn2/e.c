@@ -15,7 +15,6 @@ double e(void) {
         factorial *= k;
         previous = current;
         current += (1.0 / factorial);
-        fprintf(stdout, "%1.15f, %d\n", current, k);
         k++;
         total_e_terms++;
     }
