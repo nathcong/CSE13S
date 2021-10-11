@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
     bool newton_stat = false;
     bool madhava_stat = false;
     bool help = false;
+    bool std = true;
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         switch (opt) {
         case 'a': {
@@ -72,11 +73,8 @@ int main(int argc, char **argv) {
             help = true;
             break;
         }
-        default: {
-            help = true;
-            break;
         }
-        }
+	std = false;
     }
 
     if (help) {
@@ -96,50 +94,67 @@ int main(int argc, char **argv) {
         fprintf(stdout, "  -h   Display program synopsis and usage.\n");
         exit(0);
     }
-
+    if (std) {
+        fprintf(stdout, "SYNOPSIS\n");
+        fprintf(stdout, "   A test harness for the small numerical library.\n");
+        fprintf(stdout, "USAGE\n");
+        fprintf(stdout, "   ./mathlib-test [-aebmrvnsh]\n\n");
+        fprintf(stdout, "OPTIONS\n");
+        fprintf(stdout, "  -a   Runs all tests.\n");
+        fprintf(stdout, "  -e   Runs e test.\n");
+        fprintf(stdout, "  -b   Runs BBP pi test.\n");
+        fprintf(stdout, "  -m   Runs Madhava pi test.\n");
+        fprintf(stdout, "  -r   Runs Euler pi test.\n");
+        fprintf(stdout, "  -v   Runs Viete pi test.\n");
+        fprintf(stdout, "  -n   Runs Newton square root tests.\n");
+        fprintf(stdout, "  -s   Print verbose statistics.\n");
+        fprintf(stdout, "  -h   Display program synopsis and usage.\n");
+        exit(0);
+    }
+ 
     if (euler_number) {
         fprintf(
             stdout, "e() = %1.15f, M_E = %1.15f, diff = %1.15f\n", e(), M_E, absolute(e() - M_E));
         if (e_n_stat) {
-            fprintf(stdout, "e() terms = %d", e_terms());
+            fprintf(stdout, "e() terms = %d\n", e_terms());
         }
     }
     if (euler_pi) {
         fprintf(stdout, "pi_euler() = %1.15f, M_PI = %1.15f, diff = %1.15f\n", pi_euler(), M_PI,
             absolute(pi_euler() - M_PI));
         if (e_p_stat) {
-            fprintf(stdout, "pi_euler() terms = %d", pi_euler_terms());
+            fprintf(stdout, "pi_euler() terms = %d\n", pi_euler_terms());
         }
     }
     if (bbp) {
         fprintf(stdout, "pi_bbp() = %1.15f, M_PI = %1.15f, diff = %1.15f\n", pi_bbp(), M_PI,
             absolute(pi_bbp() - M_PI));
         if (bbp_stat) {
-            fprintf(stdout, "pi_bbp() terms = %d", pi_bbp_terms());
+            fprintf(stdout, "pi_bbp() terms = %d\n", pi_bbp_terms());
         }
     }
     if (madhava) {
         fprintf(stdout, "pi_madhava() = %1.15f, M_PI = %1.15f, diff = %1.15f\n", pi_madhava(), M_PI,
             absolute(pi_madhava() - M_PI));
         if (madhava_stat) {
-            fprintf(stdout, "pi_madhava() terms = %d", pi_madhava_terms());
+            fprintf(stdout, "pi_madhava() terms = %d\n", pi_madhava_terms());
         }
     }
     if (viete) {
         fprintf(stdout, "e() = %1.15f, M_PI = %1.15f, diff = %1.15f\n", pi_viete(), M_PI,
             absolute(pi_viete() - M_PI));
         if (viete_stat) {
-            fprintf(stdout, "e() terms = %d", pi_viete_factors());
+            fprintf(stdout, "e() terms = %d\n", pi_viete_factors());
         }
     }
     if (newton) {
-        float newton_print;
+        double newton_print;
         for (newton_print = 0.0; newton_print <= 10.0; newton_print += 0.1) {
             fprintf(stdout, "sqrt_newton(%f) = %1.15f, sqrt(%f) = %1.15f, diff = %1.15f\n",
                 newton_print, sqrt_newton(newton_print), newton_print, sqrt(newton_print),
                 absolute(sqrt_newton(newton_print)));
             if (newton_stat) {
-                fprintf(stdout, "sqrt_newton() terms = %d", sqrt_newton_iters());
+                fprintf(stdout, "sqrt_newton() terms = %d\n", sqrt_newton_iters());
             }
         }
     }

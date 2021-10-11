@@ -5,6 +5,7 @@
 static int total_newton_terms = 0;
 
 double sqrt_newton(double x) {
+    total_newton_terms = 0;
     double y = 1.0;
     double z = 0.0;
     while (absolute((y - z)) > EPSILON) {
