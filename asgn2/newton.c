@@ -12,10 +12,10 @@ double sqrt_newton(double x) {
     double previous = 0.0;
     while (absolute((current - previous)) > EPSILON) {
         previous = current;
-        current = 0.5 * (z + (x / z));
+        current = 0.5 * (previous + (x / previous));
         ++total_newton_terms;
     }
-    return y;
+    return current;
 }
 
 /* this function returns the number of terms computed by the sqrt_newton function
