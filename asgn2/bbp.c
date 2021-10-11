@@ -4,7 +4,9 @@
 
 static int total_bbp_terms = 1;
 
+/* this function calculates pi using the Bailey-Borwein-Plouffe formula */
 double pi_bbp(void) {
+    total_bbp_terms = 1;
     double fraction = 0.0;
     double exponential_fraction = 0.0;
     double current = 47.0 / 15.0;
@@ -24,6 +26,8 @@ double pi_bbp(void) {
     return current;
 }
 
+/* this function returns the number of terms computed by the pi_bbp function
+ * until the epsilon limit was reached */
 int pi_bbp_terms(void) {
     return total_bbp_terms;
 }

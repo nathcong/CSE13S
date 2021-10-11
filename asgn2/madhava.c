@@ -3,8 +3,9 @@
 #include <stdio.h>
 
 static int total_madhava_terms = 1;
-
+/* this function calculates pi using the Madhava series */
 double pi_madhava(void) {
+    total_madhava_terms = 1;
     double exponent = 1.0;
     double denominator = 1.0;
     double current = 1.0;
@@ -22,6 +23,8 @@ double pi_madhava(void) {
     term = current * sqrt_newton(12);
     return term;
 }
+/* this function returns the number of terms computated by the pi_madhava function
+ * until epsilon limit was reached */
 int pi_madhava_terms() {
     return total_madhava_terms;
 }
