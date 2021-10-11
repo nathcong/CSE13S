@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
         for (newton_print = 0.0; newton_print <= 10.0; newton_print += 0.1) {
             fprintf(stdout, "sqrt_newton(%f) = %1.15f, sqrt(%f) = %1.15f, diff = %1.15f\n",
                 newton_print, sqrt_newton(newton_print), newton_print, sqrt(newton_print),
-                absolute(sqrt_newton(newton_print)));
+                absolute(sqrt_newton(newton_print) - sqrt(newton_print)));
             if (newton_stat) {
                 fprintf(stdout, "sqrt_newton() terms = %d\n", sqrt_newton_iters());
             }
