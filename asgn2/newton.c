@@ -8,11 +8,11 @@ static int total_newton_terms = 0;
  * Newton-Raphson method */
 double sqrt_newton(double x) {
     total_newton_terms = 0;
-    double y = 1.0;
-    double z = 0.0;
-    while (absolute((y - z)) > EPSILON) {
-        z = y;
-        y = 0.5 * (z + (x / z));
+    double current = 1.0;
+    double previous = 0.0;
+    while (absolute((current - previous)) > EPSILON) {
+        previous = current;
+        current = 0.5 * (z + (x / z));
         ++total_newton_terms;
     }
     return y;
@@ -20,6 +20,6 @@ double sqrt_newton(double x) {
 
 /* this function returns the number of terms computed by the sqrt_newton function
  * until it reaches the epsilon limit */
-int sqrt_newton_iters() {
+int sqrt_newton_iters(void) {
     return total_newton_terms;
 }
