@@ -13,7 +13,7 @@ double sqrt_newton(double x) {
     while (absolute((current - previous)) > EPSILON) {
         previous = current;
         current = 0.5 * (previous + (x / previous));
-        ++total_newton_terms;
+        total_newton_terms++;
     }
     return current;
 }
