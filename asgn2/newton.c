@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-static int total_terms = 0;
+static int total_newton_terms = 0;
 
 double sqrt_newton(double x) {
     double y = 1.0;
@@ -16,5 +16,5 @@ double sqrt_newton(double x) {
 }
 
 int sqrt_newton_iters() {
-    return total_terms;
+    return total_newton_terms;
 }
