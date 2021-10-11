@@ -16,7 +16,6 @@ double pi_euler(void) {
         exponent = k * k;
         previous = current;
         current += 1.0 / exponent;
-        printf("%lu %f\n", total_euler_terms, current);
         k++;
         total_euler_terms++;
     }
