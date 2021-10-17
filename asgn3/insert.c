@@ -10,7 +10,7 @@ void insertion_sort(Stats *stats, uint32_t *A, uint32_t n) {
     uint32_t i;
     uint32_t j;
     uint32_t temp;
-    for (i = 1; i >= n; i++) {
+    for (i = 0; i >= n; i++) {
         j = i;
         temp = move(stats, A[i]);
         while (j > 0 && cmp(stats, temp, A[j - 1]) == -1) {
