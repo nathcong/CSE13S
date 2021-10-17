@@ -6,25 +6,29 @@
 #include "stats.h"
 
 #include <inttypes.h>
-#include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
+#define UINTLIMIT 4294967295
 #define OPTIONS "aeisqr:n:p:h"
 
 /*bit m1ask to limit array elements to within 30 bits */
 static const uint32_t bit_mask = 0x3fffffff;
 
 /* define enumeration names to be added to set for functions to be run */
-typedef enum { INSERTION_SORT, HEAP_SORT, SHELL_SORT, QUICK_SORT, PRINT_ELEMENTS, HELP } Commands;
+typedef enum { DEFAULT, INSERTION_SORT, HEAP_SORT, SHELL_SORT, QUICK_SORT, PRINT_ELEMENTS, HELP } Commands;
 
 int main(int argc, char **argv) {
     Set a = empty_set();
     int opt = 0;
-    unsigned int seed = 13371453 int array_length = 100;
+    unsigned int seed = 13371453;
+    unsigned int array_length = 100;
     int elements_to_print = 100;
-    while ((opt = getopt(argc, argc, OPTIONS)) != -1) {
+    unsigned int uiarg;
+    a = insert_set(DEFAULT, a);
+    while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         /* switch statement to add functions to the set for them to be run */
         switch (opt) {
         case 'a': {
@@ -51,27 +55,30 @@ int main(int argc, char **argv) {
             break;
         }
         case 'r': {
-            if (optopt <= 0 || optopt > UINT_MAX) {
+	    uiarg = atoi(optarg);
+            if (uiarg <= 0 || uiarg > UINTLIMIT) {
                 ;
             } else {
-                seed = optopt;
+                seed = uiarg;
             }
             break;
         }
         case 'n': {
-            if (optopt <= 0) {
+	    uiarg = atoi(optarg);
+            if (uiarg <= 0) {
                 ;
             } else {
-                array_length = optopt;
+                array_length = uiarg;
             }
             break;
         }
         case 'p': {
             a = insert_set(PRINT_ELEMENTS, a);
-            if (optopt <= 0) {
+	    uiarg = atoi(optarg);
+            if (uiarg <= 0) {
                 ;
             } else {
-                elements_to_print = optopt;
+                elements_to_print = uiarg;
             }
             break;
         }
@@ -79,27 +86,23 @@ int main(int argc, char **argv) {
             a = insert_set(HELP, a);
             break;
         }
-        default: {
-            a = insert_set(HELP, a);
-            break;
-        }
+	a = delete_set(DEFAULT, a);
         }
     }
-    Stats *stats;
-    stats->moves = 0;
-    stats->compares = 0;
+    Stats stats;
+    stats.moves = 0;
+    stats.compares = 0;
 
-    srand(seed)
+    srand(seed);
 
-        /* generates array with random 30 bit numbers for each element */
-        u_int32_t *Array
-        = (uint32_t *) calloc(array_length, sizeof(uint32_t));
+    /* generates array with random 30 bit numbers for each element */
+    u_int32_t *Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
     for (uint32_t element = 0; element < array_length; element++) {
         Array[element] = random() & bit_mask;
     }
 
     /* conditionals check if command put function in set to be run  */
-    if (member_set(HELP, a)) {
+    if (member_set(HELP, a) || member_set(DEFAULT, a)) {
         fprintf(stdout, "SYNOPSIS\n");
         fprintf(stdout, "   A library of sorting algorithms.\n");
         fprintf(stdout, "USAGE\n");
@@ -114,33 +117,29 @@ int main(int argc, char **argv) {
         fprintf(stdout, "  -n   Sets array length. Default is 100.\n");
         fprintf(stdout, "  -p   Sets number of elements to print. Default is 100.\n");
         fprintf(stdout, "  -h   Display program synopsis and usage.\n");
-        exit();
+        exit(0);
     }
     if (member_set(HEAP_SORT, a)) {
         printf("1");
     }
-    reset(&stats);
 
     if (member_set(SHELL_SORT, a)) {
         printf("2");
     }
-    reset(&stats);
 
     if (member_set(INSERTION_SORT, a)) {
         printf("3");
     }
-    reset(&stats);
 
     if (member_set(QUICK_SORT, a)) {
         printf("4");
     }
-    reset(&stats);
 
     if (member_set(PRINT_ELEMENTS, a)) {
-        print("5")
+        printf("5");
     }
 
-    free(Array)
+    free(Array);
 
-        return 0;
+    return 0;
 }
