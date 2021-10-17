@@ -20,13 +20,14 @@ static const uint32_t bit_mask = 0x3fffffff;
 /* define enumeration names to be added to set for functions to be run */
 typedef enum { DEFAULT, INSERTION_SORT, HEAP_SORT, SHELL_SORT, QUICK_SORT, HELP } Commands;
 
-void array_print(uint32_t *A, uint32_t length) {
+int array_print(uint32_t *A, uint32_t length) {
     for (uint32_t counter = 1; counter < length; counter++) {
         printf("%13" PRIu32, A[counter]);
         if (counter % 5 == 0) {
             printf("\n");
         }
     }
+    return 0;
 }
 int main(int argc, char **argv) {
     Set a = empty_set();
@@ -148,39 +149,39 @@ int main(int argc, char **argv) {
             stats.moves, stats.compares);
         array_print(Array, elements_to_print);
     }
-}
-reset(&stats);
-for (uint32_t element = 0; element < array_length; element++) {
-    Array[element] = Unsorted_Array[element];
-}
 
-/* if insertion sort is requested by the command prompt */
-if (member_set(INSERTION_SORT, a)) {
-    insertion_sort(&stats, Array, array_length);
-    fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n", array_length,
-        stats.moves, stats.compares);
-    array_print(Array, elements_to_print);
-}
-reset(&stats);
-for (uint32_t element = 0; element < array_length; element++) {
-    Array[element] = Unsorted_Array[element];
-}
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array[element];
+    }
 
-/* if quick sort is requested by the command prompt */
-if (member_set(QUICK_SORT, a)) {
-    quick_sort(&stats, Array, array_length);
-    fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n", array_length, stats.moves,
-        stats.compares);
-    array_print(Array, elements_to_print);
-}
-reset(&stats);
-for (uint32_t element = 0; element < array_length; element++) {
-    Array[element] = Unsorted_Array[element];
-}
+    /* if insertion sort is requested by the command prompt */
+    if (member_set(INSERTION_SORT, a)) {
+        insertion_sort(&stats, Array, array_length);
+        fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(Array, elements_to_print);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array[element];
+    }
 
-/* free allocated memory */
-free(Array);
-free(Unsorted_Array);
+    /* if quick sort is requested by the command prompt */
+    if (member_set(QUICK_SORT, a)) {
+        quick_sort(&stats, Array, array_length);
+        fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(Array, elements_to_print);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array[element];
+    }
 
-return 0;
+    /* free allocated memory */
+    free(Array);
+    free(Unsorted_Array);
+
+    return 0;
 }
