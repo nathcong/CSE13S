@@ -18,7 +18,7 @@
 static const uint32_t bit_mask = 0x3fffffff;
 
 /* define enumeration names to be added to set for functions to be run */
-typedef enum { DEFAULT, INSERTION_SORT, HEAP_SORT, SHELL_SORT, QUICK_SORT, PRINT_ELEMENTS, HELP } Commands;
+typedef enum { DEFAULT, INSERTION_SORT, HEAP_SORT, SHELL_SORT, QUICK_SORT, HELP } Commands;
 
 int main(int argc, char **argv) {
     Set a = empty_set();
@@ -73,7 +73,6 @@ int main(int argc, char **argv) {
             break;
         }
         case 'p': {
-            a = insert_set(PRINT_ELEMENTS, a);
 	    uiarg = atoi(optarg);
             if (uiarg <= 0) {
                 ;
@@ -96,11 +95,14 @@ int main(int argc, char **argv) {
     srand(seed);
 
     /* generates array with random 30 bit numbers for each element */
-    u_int32_t *Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
+    uint32_t *Array = (uint32_t*) calloc(array_length, sizeof(uint32_t));
     for (uint32_t element = 0; element < array_length; element++) {
         Array[element] = random() & bit_mask;
     }
-
+    uint32_t *Unsorted_Array = (uint32_t*) calloc (array_length, sizeof(uint32_t));
+    for (uint32_t element = 0; element < array_length; element++) {
+	Unsorted_Array[element] = Array [element];
+    }
     /* conditionals check if command put function in set to be run  */
     if (member_set(HELP, a) || member_set(DEFAULT, a)) {
         fprintf(stdout, "SYNOPSIS\n");
@@ -120,26 +122,46 @@ int main(int argc, char **argv) {
         exit(0);
     }
     if (member_set(HEAP_SORT, a)) {
-        printf("1");
+        heap_sort(&stats, Array, array_length);
+	fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n",
+			array_length, stats.moves, stats.compares);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array [element];
     }
 
     if (member_set(SHELL_SORT, a)) {
-        printf("2");
+	shell_sort(&stats, Array, array_length);	
+        fprintf(stdout, "Shell Sort, %u elements, %lu moves, %lu compares\n",
+			array_length, stats.moves, stats.compares);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array [element];
     }
 
     if (member_set(INSERTION_SORT, a)) {
-        printf("3");
+        insertion_sort(&stats, Array, array_length);
+	fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n",
+			array_length, stats.moves, stats.compares);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array [element];
     }
 
     if (member_set(QUICK_SORT, a)) {
-        printf("4");
+        quick_sort(&stats, Array, array_length);
+	fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n",
+                        array_length, stats.moves, stats.compares);
     }
-
-    if (member_set(PRINT_ELEMENTS, a)) {
-        printf("5");
+    reset(&stats);
+    for (uint32_t element = 0; element < array_length; element++) {
+        Array[element] = Unsorted_Array [element];
     }
 
     free(Array);
-
+    free(Unsorted_Array);
     return 0;
 }
