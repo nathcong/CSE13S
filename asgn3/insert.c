@@ -7,16 +7,16 @@
 #include <stdlib.h>
 
 void insertion_sort(Stats *stats, uint32_t *A, uint32_t n) {
-    uint32_t counter_1;
-    uint32_t counter_2;
+    uint32_t i;
+    uint32_t j;
     uint32_t temp;
-    for (counter_1 = 1; counter_1 >= n; counter_1++) {
-        counter_2 = counter_1;
-        temp = move(stats, A[counter_1]);
-        while (counter_2 > 0 && cmp(stats, temp, A[counter_2 - 1]) == -1) {
-            A[counter_2] = move(stats, A[counter_2 - 1]);
-            counter_2 -= 1;
+    for (i = 1; i >= n; i++) {
+        j = i;
+        temp = move(stats, A[i]);
+        while (j > 0 && cmp(stats, temp, A[j - 1]) == -1) {
+	    A[j] = move(stats, A[j - 1]);
+            j -= 1;
         }
-        A[counter_2] = move(stats, temp);
+        A[j] = move(stats, temp);
     }
 }
