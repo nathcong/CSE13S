@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 #define UINTLIMIT 4294967295
-#define OPTIONS "aeisqr:n:p:h"
+#define OPTIONS   "aeisqr:n:p:h"
 
 /*bit m1ask to limit array elements to within 30 bits */
 static const uint32_t bit_mask = 0x3fffffff;
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'r': {
-	    uiarg = atoi(optarg);
+            uiarg = atoi(optarg);
             if (uiarg <= 0 || uiarg > UINTLIMIT) {
                 ;
             } else {
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'n': {
-	    uiarg = atoi(optarg);
+            uiarg = atoi(optarg);
             if (uiarg <= 0) {
                 ;
             } else {
@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'p': {
-	    uiarg = atoi(optarg);
+            uiarg = atoi(optarg);
             if (uiarg <= 0) {
                 ;
             } else {
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
             a = insert_set(HELP, a);
             break;
         }
-	a = delete_set(DEFAULT, a);
+            a = delete_set(DEFAULT, a);
         }
     }
     Stats stats;
@@ -95,13 +95,13 @@ int main(int argc, char **argv) {
     srand(seed);
 
     /* generates array with random 30 bit numbers for each element */
-    uint32_t *Array = (uint32_t*) calloc(array_length, sizeof(uint32_t));
+    uint32_t *Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
     for (uint32_t element = 0; element < array_length; element++) {
         Array[element] = random() & bit_mask;
     }
-    uint32_t *Unsorted_Array = (uint32_t*) calloc (array_length, sizeof(uint32_t));
+    uint32_t *Unsorted_Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
     for (uint32_t element = 0; element < array_length; element++) {
-	Unsorted_Array[element] = Array [element];
+        Unsorted_Array[element] = Array[element];
     }
     /* conditionals check if command put function in set to be run  */
     if (member_set(HELP, a) || member_set(DEFAULT, a)) {
@@ -123,42 +123,42 @@ int main(int argc, char **argv) {
     }
     if (member_set(HEAP_SORT, a)) {
         heap_sort(&stats, Array, array_length);
-	fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n",
-			array_length, stats.moves, stats.compares);
+        fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
     }
     reset(&stats);
     for (uint32_t element = 0; element < array_length; element++) {
-        Array[element] = Unsorted_Array [element];
+        Array[element] = Unsorted_Array[element];
     }
 
     if (member_set(SHELL_SORT, a)) {
-	shell_sort(&stats, Array, array_length);	
-        fprintf(stdout, "Shell Sort, %u elements, %lu moves, %lu compares\n",
-			array_length, stats.moves, stats.compares);
+        shell_sort(&stats, Array, array_length);
+        fprintf(stdout, "Shell Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
     }
     reset(&stats);
     for (uint32_t element = 0; element < array_length; element++) {
-        Array[element] = Unsorted_Array [element];
+        Array[element] = Unsorted_Array[element];
     }
 
     if (member_set(INSERTION_SORT, a)) {
         insertion_sort(&stats, Array, array_length);
-	fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n",
-			array_length, stats.moves, stats.compares);
+        fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
     }
     reset(&stats);
     for (uint32_t element = 0; element < array_length; element++) {
-        Array[element] = Unsorted_Array [element];
+        Array[element] = Unsorted_Array[element];
     }
 
     if (member_set(QUICK_SORT, a)) {
         quick_sort(&stats, Array, array_length);
-	fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n",
-                        array_length, stats.moves, stats.compares);
+        fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
     }
     reset(&stats);
     for (uint32_t element = 0; element < array_length; element++) {
-        Array[element] = Unsorted_Array [element];
+        Array[element] = Unsorted_Array[element];
     }
 
     free(Array);
