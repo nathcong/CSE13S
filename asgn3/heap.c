@@ -35,7 +35,7 @@ void heap_fix(Stats *stats, uint32_t *A, uint32_t first, uint32_t last) {
 
 void heap_build(Stats *stats, uint32_t *A, uint32_t first, uint32_t last) {
     uint32_t father;
-    for (father = floor(last / 2); father < first - 1; father--) {
+    for (father = floor(last / 2); father > first - 1; father--) {
         heap_fix(stats, A, father, last);
     }
 }
@@ -44,7 +44,7 @@ void heap_sort(Stats *stats, uint32_t *A, uint32_t n) {
     uint32_t first = 1;
     uint32_t last = n;
     heap_build(stats, A, first, last);
-    for (uint32_t branch = last; first > branch; branch--) {
+    for (uint32_t branch = last; first < branch; branch--) {
         swap(stats, &A[first - 1], &A[branch - 1]);
         heap_fix(stats, A, first, branch - 1);
     }
