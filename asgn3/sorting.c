@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
             a = insert_set(HELP, a);
         }
         }
+    }
         Stats stats;
         stats.moves = 0;
         stats.compares = 0;
@@ -200,4 +201,3 @@ int main(int argc, char **argv) {
 
         return 0;
     }
-}
