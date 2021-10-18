@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* */
 void shell_sort(Stats *stats, uint32_t *A, uint32_t n) {
     uint32_t max_gap = floor(log(3 + 2 * n) / log(3));
     uint32_t temp = 0;
@@ -20,9 +21,9 @@ void shell_sort(Stats *stats, uint32_t *A, uint32_t n) {
                 A[j] = move(stats, A[j - gap]);
                 j -= gap;
             }
-	    A[j] = move(stats, temp);
-	}
-	gap_count -= 1;
+            A[j] = move(stats, temp);
+        }
+        gap_count -= 1;
     }
     insertion_sort(stats, A, n);
 }
