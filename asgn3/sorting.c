@@ -108,6 +108,11 @@ int main(int argc, char **argv) {
 
     srand(seed);
 
+    /* if array elements are less than elements to print */
+    if (array_length < elements_to_print) {
+        elements_to_print = array_length;
+    }
+
     /* generates array with random 30 bit numbers for each element */
     uint32_t *A = (uint32_t *) calloc(array_length, sizeof(uint32_t));
     for (uint32_t element = 0; element < array_length; element++) {
@@ -149,7 +154,7 @@ int main(int argc, char **argv) {
     /* if heap sort is requested by the command prompt */
     if (member_set(HEAP_SORT, a)) {
         heap_sort(&stats, A, array_length);
-        fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n", array_length,
+        fprintf(stdout, "Heap Sort, %u elements, %lu moves, %lu compares\n", array_length,
             stats.moves, stats.compares);
         array_print(A, elements_to_print);
     }
@@ -165,7 +170,6 @@ int main(int argc, char **argv) {
             stats.moves, stats.compares);
         array_print(A, elements_to_print);
     }
-
     reset(&stats);
     for (uint32_t element = 0; element <= array_length; element++) {
         A[element] = Unsorted_Array[element];
