@@ -102,102 +102,102 @@ int main(int argc, char **argv) {
         }
         }
     }
-        Stats stats;
-        stats.moves = 0;
-        stats.compares = 0;
+    Stats stats;
+    stats.moves = 0;
+    stats.compares = 0;
 
-        srand(seed);
+    srand(seed);
 
-        /* generates array with random 30 bit numbers for each element */
-        uint32_t *A = (uint32_t *) calloc(array_length, sizeof(uint32_t));
-        for (uint32_t element = 0; element < array_length; element++) {
-            A[element] = random() & bit_mask;
-        }
-
-        /* duplicates array so sorted array can be reset */
-        uint32_t *Unsorted_Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
-        for (uint32_t element = 0; element < array_length; element++) {
-            Unsorted_Array[element] = A[element];
-        }
-        /* conditionals check if command put function in set to be run  */
-
-        /* if no sorting functions are called */
-        if (!member_set(HEAP_SORT, a) && !member_set(INSERTION_SORT, a)
-            && !member_set(SHELL_SORT, a) && !member_set(QUICK_SORT, a)) {
-            printf("Select at least one sort to perform.\n");
-            a = insert_set(HELP, a);
-        }
-
-        /* if help message is requested by the command prompt or no command is detected */
-        if (member_set(HELP, a)) {
-            fprintf(stdout, "SYNOPSIS\n");
-            fprintf(stdout, "   A library of sorting algorithms.\n");
-            fprintf(stdout, "USAGE\n");
-            fprintf(stdout, "   ./sorting [-aeisqr:n:p:h] [-r seed] [-n length] [-p elements]\n\n");
-            fprintf(stdout, "OPTIONS\n");
-            fprintf(stdout, "  -a   Runs all sorting algorithms.\n");
-            fprintf(stdout, "  -e   Runs heap sort algorithm.\n");
-            fprintf(stdout, "  -i   Runs insertion sort algorithm.\n");
-            fprintf(stdout, "  -s   Runs shell sort algorithm.\n");
-            fprintf(stdout, "  -q   Runs quicksort algorithm.\n");
-            fprintf(stdout, "  -r   Sets RNG seed. Default is 13371453.\n");
-            fprintf(stdout, "  -n   Sets array length. Default is 100.\n");
-            fprintf(stdout, "  -p   Sets number of elements to print. Default is 100.\n");
-            fprintf(stdout, "  -h   Display program synopsis and usage.\n");
-            exit(0);
-        }
-        /* if heap sort is requested by the command prompt */
-        if (member_set(HEAP_SORT, a)) {
-            heap_sort(&stats, A, array_length);
-            fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n", array_length,
-                stats.moves, stats.compares);
-            array_print(A, elements_to_print);
-        }
-        reset(&stats);
-        for (uint32_t element = 0; element <= array_length; element++) {
-            A[element] = Unsorted_Array[element];
-        }
-
-        /* if shell sort is requested by the command prompt */
-        if (member_set(SHELL_SORT, a)) {
-            shell_sort(&stats, A, array_length);
-            fprintf(stdout, "Shell Sort, %u elements, %lu moves, %lu compares\n", array_length,
-                stats.moves, stats.compares);
-            array_print(A, elements_to_print);
-        }
-
-        reset(&stats);
-        for (uint32_t element = 0; element <= array_length; element++) {
-            A[element] = Unsorted_Array[element];
-        }
-
-        /* if insertion sort is requested by the command prompt */
-        if (member_set(INSERTION_SORT, a)) {
-            insertion_sort(&stats, A, array_length);
-            fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n", array_length,
-                stats.moves, stats.compares);
-            array_print(A, elements_to_print);
-        }
-        reset(&stats);
-        for (uint32_t element = 0; element <= array_length; element++) {
-            A[element] = Unsorted_Array[element];
-        }
-
-        /* if quick sort is requested by the command prompt */
-        if (member_set(QUICK_SORT, a)) {
-            quick_sort(&stats, A, array_length);
-            fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n", array_length,
-                stats.moves, stats.compares);
-            array_print(A, elements_to_print);
-        }
-        reset(&stats);
-        for (uint32_t element = 0; element <= array_length; element++) {
-            A[element] = Unsorted_Array[element];
-        }
-
-        /* free allocated memory */
-        free(A);
-        free(Unsorted_Array);
-
-        return 0;
+    /* generates array with random 30 bit numbers for each element */
+    uint32_t *A = (uint32_t *) calloc(array_length, sizeof(uint32_t));
+    for (uint32_t element = 0; element < array_length; element++) {
+        A[element] = random() & bit_mask;
     }
+
+    /* duplicates array so sorted array can be reset */
+    uint32_t *Unsorted_Array = (uint32_t *) calloc(array_length, sizeof(uint32_t));
+    for (uint32_t element = 0; element < array_length; element++) {
+        Unsorted_Array[element] = A[element];
+    }
+    /* conditionals check if command put function in set to be run  */
+
+    /* if no sorting functions are called */
+    if (!member_set(HEAP_SORT, a) && !member_set(INSERTION_SORT, a) && !member_set(SHELL_SORT, a)
+        && !member_set(QUICK_SORT, a)) {
+        printf("Select at least one sort to perform.\n");
+        a = insert_set(HELP, a);
+    }
+
+    /* if help message is requested by the command prompt or no command is detected */
+    if (member_set(HELP, a)) {
+        fprintf(stdout, "SYNOPSIS\n");
+        fprintf(stdout, "   A library of sorting algorithms.\n");
+        fprintf(stdout, "USAGE\n");
+        fprintf(stdout, "   ./sorting [-aeisqr:n:p:h] [-r seed] [-n length] [-p elements]\n\n");
+        fprintf(stdout, "OPTIONS\n");
+        fprintf(stdout, "  -a   Runs all sorting algorithms.\n");
+        fprintf(stdout, "  -e   Runs heap sort algorithm.\n");
+        fprintf(stdout, "  -i   Runs insertion sort algorithm.\n");
+        fprintf(stdout, "  -s   Runs shell sort algorithm.\n");
+        fprintf(stdout, "  -q   Runs quicksort algorithm.\n");
+        fprintf(stdout, "  -r   Sets RNG seed. Default is 13371453.\n");
+        fprintf(stdout, "  -n   Sets array length. Default is 100.\n");
+        fprintf(stdout, "  -p   Sets number of elements to print. Default is 100.\n");
+        fprintf(stdout, "  -h   Display program synopsis and usage.\n");
+        exit(0);
+    }
+    /* if heap sort is requested by the command prompt */
+    if (member_set(HEAP_SORT, a)) {
+        heap_sort(&stats, A, array_length);
+        fprintf(stdout, "Heap Sort, %u elemeents, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(A, elements_to_print);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element <= array_length; element++) {
+        A[element] = Unsorted_Array[element];
+    }
+
+    /* if shell sort is requested by the command prompt */
+    if (member_set(SHELL_SORT, a)) {
+        shell_sort(&stats, A, array_length);
+        fprintf(stdout, "Shell Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(A, elements_to_print);
+    }
+
+    reset(&stats);
+    for (uint32_t element = 0; element <= array_length; element++) {
+        A[element] = Unsorted_Array[element];
+    }
+
+    /* if insertion sort is requested by the command prompt */
+    if (member_set(INSERTION_SORT, a)) {
+        insertion_sort(&stats, A, array_length);
+        fprintf(stdout, "Insertion Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(A, elements_to_print);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element <= array_length; element++) {
+        A[element] = Unsorted_Array[element];
+    }
+
+    /* if quick sort is requested by the command prompt */
+    if (member_set(QUICK_SORT, a)) {
+        quick_sort(&stats, A, array_length);
+        fprintf(stdout, "Quick Sort, %u elements, %lu moves, %lu compares\n", array_length,
+            stats.moves, stats.compares);
+        array_print(A, elements_to_print);
+    }
+    reset(&stats);
+    for (uint32_t element = 0; element <= array_length; element++) {
+        A[element] = Unsorted_Array[element];
+    }
+
+    /* free allocated memory */
+    free(A);
+    free(Unsorted_Array);
+
+    return 0;
+}
