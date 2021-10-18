@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* calculates pivot point seperating the two subarrays */
 unsigned int partition(Stats *stats, uint32_t *A, uint32_t low, uint32_t high) {
     uint32_t j;
     uint32_t i = low - 1;
@@ -19,6 +20,7 @@ unsigned int partition(Stats *stats, uint32_t *A, uint32_t low, uint32_t high) {
     return i + 1;
 }
 
+/* recursively calls the quick_sort implementation to continue the sort */
 void quick_recursion(Stats *stats, uint32_t *A, uint32_t low, uint32_t high) {
     if (low < high) {
         uint32_t pivot = partition(stats, A, low, high);
@@ -27,6 +29,7 @@ void quick_recursion(Stats *stats, uint32_t *A, uint32_t low, uint32_t high) {
     }
 }
 
+/* implementation of quick sort */
 void quick_sort(Stats *stats, uint32_t *A, uint32_t n) {
     quick_recursion(stats, A, 1, n);
 }

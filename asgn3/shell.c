@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* */
+/* implementation of shelk sort */
 void shell_sort(Stats *stats, uint32_t *A, uint32_t n) {
     uint32_t max_gap = floor(log(3 + 2 * n) / log(3));
     uint32_t temp = 0;
