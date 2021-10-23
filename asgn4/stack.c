@@ -31,31 +31,65 @@ void stack_delete(Stack **s) {
 	return;
 }
 uint32_t stack_size(Stack *s) {
+	return s->top;
+}
+bool stack_empty(Stack *s) {
 	if (s->top == 0) {
+                return true;
+        }
+        else {
+                return false;
+        }
+}
+bool stack_full(Stack *s) {
+	if (s->top == capacity) {
 		return true;
 	}
 	else {
 		return false;
 	}
 }
-bool stack_empty(Stack *s) {
-
-}
-bool stack_full(Stack *s) {
-
-}
 bool stack_push(Stack *s, uint32_t x) {
-
+	if (s->top < capacity) {
+		s->items[s->top] = x;
+		s->top++;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 bool stack_pop(Stack *s, uint32_t *x) {
-
+	if (s->top !=  0) {
+		*x = s->items[top]
+		s->top--;
+		return true;
+        }
+	else {
+		return false;
+	}
 }
 bool stack_peek(Stack *s, uint32_t *x) {
-
+	if (stack_empty(s) == false) {
+		*x = s->items[s->top - 1];
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 void stack_copy(Stack *dst, Stack *src) {
-
+	for (uint32_t i = 0; i < src->capacity; i++) {
+		dst->items[i] = src->items[i];
+	}
+	dst->top = src->top;
 }
 void stack_print(Stack *s, FILE *outfile, char *cities[]) {
-
+	for (uint32_t i = 0; i < s->top; i += 1) {
+		fprintf(outfile, "%s", cities[s->items[i]]);
+		if (i + 1 != s->top) {
+			fprintf(outfile, " -> ");
+		}
+	}
+	fprintf(outfile, "\n");
 }
