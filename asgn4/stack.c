@@ -12,7 +12,7 @@ struct Stack {
 };
 
 Stack *stack_create(uint32_t capacity) {
-	Stack *s = (Stack *) malloc(sizeof(stack));
+	Stack *s = (Stack *) malloc(sizeof(Stack));
 	if (s) {
 		s->top = 0;
 		s->capacity = capacity;
@@ -44,7 +44,7 @@ bool stack_empty(Stack *s) {
         }
 }
 bool stack_full(Stack *s) {
-	if (s->top == capacity) {
+	if (s->top == s->capacity) {
 		return true;
 	}
 	else {
@@ -52,7 +52,7 @@ bool stack_full(Stack *s) {
 	}
 }
 bool stack_push(Stack *s, uint32_t x) {
-	if (s->top < capacity) {
+	if (s->top < s->capacity) {
 		s->items[s->top] = x;
 		s->top++;
 		return true;
@@ -63,7 +63,7 @@ bool stack_push(Stack *s, uint32_t x) {
 }
 bool stack_pop(Stack *s, uint32_t *x) {
 	if (s->top !=  0) {
-		*x = s->items[top]
+		*x = s->items[s->top]
 		s->top--;
 		return true;
         }
