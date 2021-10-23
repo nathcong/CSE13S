@@ -1,3 +1,5 @@
+#include "graph.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
