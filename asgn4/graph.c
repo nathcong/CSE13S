@@ -84,6 +84,12 @@ void graph_mark_unvisited(Graph *G, uint32_t v) {
 	}
 }
 void graph_print(Graph *G) {
-
+	for (uint32_t i = 0; i < G->vertices; i++) {
+		for (uint32_t j = 0; j G->vertices; j++) {
+			fprintf(outfile, "%d, " G->matrix[i][j]);
+		}
+		fprintf(outfile, "\n");
+	}
+	fprintf(outfile, "\n");
 }
 
