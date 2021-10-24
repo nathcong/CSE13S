@@ -60,7 +60,7 @@ bool stack_push(Stack *s, uint32_t x) {
 }
 bool stack_pop(Stack *s, uint32_t *x) {
     if (s->top != 0) {
-        *x = s->items[s->top];
+        *x = s->items[s->top - 1];
         s->top--;
         return true;
     } else {
