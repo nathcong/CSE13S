@@ -108,14 +108,14 @@ int main(int argc, char **argv) {
     total_vertices = fscanf(infile, "%" SCNu32 "\n", &total_vertices);
 
     /* checks if vertices are within bounds */
-    if (total_vertices > VERTICES) {
+    if (total_vertices > VERTICES || total_vertices != 1) {
         fprintf(stderr, "Error: Number of vertices malformed.\n");
-        exit(0);
+        return -1;
     }
 
     /* cities array memory allocation */
-    char **cities; 
-    cities =  calloc(total_vertices, sizeof(char *));
+    char **cities;
+    cities = calloc(total_vertices, sizeof(char *));
 
     /* storing cities in array */
     for (uint32_t c = 0; c < total_vertices; c++) {
@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
             graph_add_edge(G, i, j, k);
         } else {
             fprintf(stderr, "Error: Vertex edge is malformed");
-            exit(0);
+            return -1;
         }
     }
     /* create paths for DFS */
@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
     dfs(G, START_VERTEX, current_path, shortest_path, cities, outfile);
 
     if (path_length(shortest_path) > 0) {
-	path_print(shortest_path, outfile, cities);
+        path_print(shortest_path, outfile, cities);
     }
     fprintf(outfile, "Total recursive calls: %u\n", recursive_calls);
 
