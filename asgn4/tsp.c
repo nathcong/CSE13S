@@ -3,13 +3,13 @@
 #include "stack.h"
 #include "vertices.h"
 
+#include <inttypes.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <inttypes.h>
 #define OPTIONS "hvui:o:"
 
 static uint32_t recursive_calls = 0;
@@ -35,6 +35,7 @@ void dfs(Graph *G, uint32_t v, Path *curr, Path *shortest, char *cities[], FILE 
                     path_print(curr, outfile, cities);
                 }
             }
+            path_pop_vertex(curr, &hold, G);
         }
     }
     path_pop_vertex(curr, &hold, G);
@@ -106,8 +107,8 @@ int main(int argc, char **argv) {
 
     total_vertices = fscanf(infile, "%" SCNu32 "\n", &total_vertices);
 
-        /* checks if vertices are within bounds */
-        if (total_vertices > VERTICES) {
+    /* checks if vertices are within bounds */
+    if (total_vertices > VERTICES) {
         fprintf(stderr, "Error: Number of vertices malformed.\n");
         exit(0);
     }
@@ -129,14 +130,12 @@ int main(int argc, char **argv) {
 
     /* reads vertices and edge weights and checks if valid */
     while (hold != EOF) {
-	hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k); 
-	if (hold == EOF) {
+        hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k);
+        if (hold == EOF) {
             break;
-        }
-        else if (hold == 3 && hold != EOF) {
+        } else if (hold == 3 && hold != EOF) {
             graph_add_edge(G, i, j, k);
-        }
-        else {
+        } else {
             fprintf(stderr, "Error: Vertex edge is malformed");
             exit(0);
         }
