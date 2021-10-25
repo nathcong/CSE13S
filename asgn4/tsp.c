@@ -52,6 +52,10 @@ int main(int argc, char **argv) {
     uint32_t total_vertices = 0;
     uint32_t i, j, k = 0;
     char buf[1024];
+    Graph *G;
+    Path *current_path;
+    Path *shortest_path;
+    char **cities;
 
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         /* switch statement to add functions to the set for them to be run */
@@ -113,7 +117,6 @@ int main(int argc, char **argv) {
     }
 
     /* cities array memory allocation */
-    char **cities;
     cities = (char**) calloc(total_vertices, sizeof(char *));
 
     /* storing cities in array */
@@ -123,10 +126,8 @@ int main(int argc, char **argv) {
             cities[c] = strdup(buf);
         }
     }
-    hold = 0;
 
     /* graph creation */
-    Graph *G;
     G = graph_create(total_vertices, undirected);
 
     /* reads vertices and edge weights and checks if valid */
@@ -135,12 +136,16 @@ int main(int argc, char **argv) {
             graph_add_edge(G, i, j, k);
         } else {
             fprintf(stderr, "Error: Vertex edge is malformed.\n");
+	    for (uint32_t c = 0; c < total_vertices; c++) {
+                free(cities[i]);
+    	    }
+	    free(&G);
             return -1;
         }
     }
     /* create paths for DFS */
-    Path *current_path = path_create();
-    Path *shortest_path = path_create();
+    current_path = path_create();
+    shortest_path = path_create();
 
     /* execute DFS */
     dfs(G, START_VERTEX, current_path, shortest_path, cities, outfile);
@@ -156,11 +161,10 @@ int main(int argc, char **argv) {
     path_delete(&shortest_path);
 
     for (uint32_t c = 0; c < total_vertices; c++) {
-        free(cities[i]);
+        free(cities[c]);
     }
     free(cities);
     fclose(infile);
     fclose(outfile);
-
     return 0;
 }
