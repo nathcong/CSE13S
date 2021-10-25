@@ -1,6 +1,7 @@
 # Assignment 4 - The Perambulations of Denver Long - README
 
 ## Program Description
+This program is a library that can perform pathfinding. It contains implementations of graphing, pathfinding, and a stack. The pathfinding algorithm it uses is Depth First Search.
 
 ## Program Compiling
 To compile the complete program, input:
