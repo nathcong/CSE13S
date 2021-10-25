@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
             for (uint32_t c = 0; c < total_vertices; c++) {
                 free(cities[i]);
             }
-	    free(cities);
+            free(cities);
             free(&G);
             return -1;
         }
