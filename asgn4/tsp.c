@@ -28,19 +28,20 @@ void dfs(Graph *G, uint32_t v, Path *curr, Path *shortest, char *cities[], FILE 
                 dfs(G, c, curr, shortest, cities, outfile);
             } else if ((c == START_VERTEX) && (path_vertices(curr) == graph_vertices(G))) {
                 path_push_vertex(curr, c, G);
-                if (path_length(curr) == 0 || path_length(curr) < path_length(shortest)) {
+                if (path_length(shortest) == 0 || path_length(curr) < path_length(shortest)) {
                     path_copy(shortest, curr);
-                }
-                if (verbose == true) {
-                    path_print(curr, outfile, cities);
-                }
+               	    if (verbose == true) {
+                        path_print(curr, outfile, cities);
+                    }
+		}
+	        path_pop_vertex(curr, &hold, G);
             }
-            path_pop_vertex(curr, &hold, G);
         }
     }
     path_pop_vertex(curr, &hold, G);
     graph_mark_unvisited(G, v);
 }
+
 
 int main(int argc, char **argv) {
     int opt = 0;
@@ -109,7 +110,7 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
-    hold = fscanf(infile, "%" SCNu32 "\n", &total_vertices);
+    hold = fscanf(infile, "%d\n", &total_vertices);
     /* checks if vertices are within bounds */
     if (hold != 1 || total_vertices > VERTICES) {
         fprintf(stderr, "Error: Number of vertices malformed.\n");
