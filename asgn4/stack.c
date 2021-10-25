@@ -5,12 +5,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Stack struct definition */
 struct Stack {
     uint32_t top;
     uint32_t capacity;
     uint32_t *items;
 };
 
+/* creates stack with given maximum capacity */
 Stack *stack_create(uint32_t capacity) {
     Stack *s = (Stack *) malloc(sizeof(Stack));
     if (s) {
@@ -24,6 +26,8 @@ Stack *stack_create(uint32_t capacity) {
     }
     return s;
 }
+
+/* deletes stack and frees memory */
 void stack_delete(Stack **s) {
     if (*s && (*s)->items) {
         free((*s)->items);
@@ -32,9 +36,13 @@ void stack_delete(Stack **s) {
     }
     return;
 }
+
+/* returns number of elements in the stack */
 uint32_t stack_size(Stack *s) {
     return s->top;
 }
+
+/* checks if stack is empty */
 bool stack_empty(Stack *s) {
     if (s->top == 0) {
         return true;
@@ -42,6 +50,8 @@ bool stack_empty(Stack *s) {
         return false;
     }
 }
+
+/* checks if stack is full */
 bool stack_full(Stack *s) {
     if (s->top == s->capacity) {
         return true;
@@ -49,6 +59,8 @@ bool stack_full(Stack *s) {
         return false;
     }
 }
+
+/* puts object onto the top of the stack */
 bool stack_push(Stack *s, uint32_t x) {
     if (s->top < s->capacity) {
         s->items[s->top] = x;
@@ -58,6 +70,8 @@ bool stack_push(Stack *s, uint32_t x) {
         return false;
     }
 }
+
+/* removes object from the top of the stack */
 bool stack_pop(Stack *s, uint32_t *x) {
     if (s->top != 0) {
         *x = s->items[s->top - 1];
@@ -67,6 +81,8 @@ bool stack_pop(Stack *s, uint32_t *x) {
         return false;
     }
 }
+
+/* inquires stack about top object */
 bool stack_peek(Stack *s, uint32_t *x) {
     if (stack_empty(s) == false) {
         *x = s->items[s->top - 1];
@@ -75,12 +91,16 @@ bool stack_peek(Stack *s, uint32_t *x) {
         return false;
     }
 }
+
+/* copies stack to another stack */
 void stack_copy(Stack *dst, Stack *src) {
     for (uint32_t i = 0; i < src->capacity; i++) {
         dst->items[i] = src->items[i];
     }
     dst->top = src->top;
 }
+
+/* prints stack */
 void stack_print(Stack *s, FILE *outfile, char *cities[]) {
     for (uint32_t i = 0; i < s->top; i += 1) {
         fprintf(outfile, "%s", cities[s->items[i]]);
