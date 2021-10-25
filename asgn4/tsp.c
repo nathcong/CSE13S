@@ -30,18 +30,17 @@ void dfs(Graph *G, uint32_t v, Path *curr, Path *shortest, char *cities[], FILE 
                 path_push_vertex(curr, c, G);
                 if (path_length(shortest) == 0 || path_length(curr) < path_length(shortest)) {
                     path_copy(shortest, curr);
-               	    if (verbose == true) {
+                    if (verbose == true) {
                         path_print(curr, outfile, cities);
                     }
-		}
-	        path_pop_vertex(curr, &hold, G);
+                }
+                path_pop_vertex(curr, &hold, G);
             }
         }
     }
     path_pop_vertex(curr, &hold, G);
     graph_mark_unvisited(G, v);
 }
-
 
 int main(int argc, char **argv) {
     int opt = 0;
