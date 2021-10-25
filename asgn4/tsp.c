@@ -154,6 +154,9 @@ int main(int argc, char **argv) {
     path_delete(&current_path);
     path_delete(&shortest_path);
 
+    for (uint32_t c = 0; c < total_vertices; c++) {
+        free(cities[i]);
+    }
     free(cities);
     fclose(infile);
     fclose(outfile);
