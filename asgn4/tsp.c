@@ -130,11 +130,8 @@ int main(int argc, char **argv) {
     Graph *G = graph_create(total_vertices, undirected);
 
     /* reads vertices and edge weights and checks if valid */
-    while (hold != EOF) {
-        hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k);
-        if (hold == EOF) {
-            break;
-        } else if (hold == 3 && hold != EOF) {
+    while ((hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k)) != EOF) {
+        if (hold == 3) {
             graph_add_edge(G, i, j, k);
         } else {
             fprintf(stderr, "Error: Vertex edge is malformed");
