@@ -114,13 +114,14 @@ int main(int argc, char **argv) {
     }
 
     /* cities array memory allocation */
-    char *cities = (char *) calloc(total_vertices, sizeof(char *));
+    char **cities; 
+    cities =  calloc(total_vertices, sizeof(char *));
 
     /* storing cities in array */
     for (uint32_t c = 0; c < total_vertices; c++) {
         if (fgets(buf, 1024, infile) != NULL) {
             strtok(buf, "\n");
-            cities[c] = *strdup(buf);
+            cities[c] = strdup(buf);
         }
     }
     hold = 0;
@@ -145,8 +146,11 @@ int main(int argc, char **argv) {
     Path *shortest_path = path_create();
 
     /* execute DFS */
-    dfs(G, START_VERTEX, current_path, shortest_path, &cities, outfile);
+    dfs(G, START_VERTEX, current_path, shortest_path, cities, outfile);
 
+    if (path_length(shortest_path) > 0) {
+	path_print(shortest_path, outfile, cities);
+    }
     fprintf(outfile, "Total recursive calls: %u\n", recursive_calls);
 
     /* memory freeing */
