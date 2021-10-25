@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
             infile = fopen(optarg, "r");
             if (infile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
-                exit(0);
+                return -1;
             }
             break;
         }
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
             outfile = fopen(optarg, "w");
             if (outfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
-                exit(0);
+                return -1;
             }
             break;
         }
@@ -105,17 +105,16 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
-    total_vertices = fscanf(infile, "%" SCNu32 "\n", &total_vertices);
-
+    hold = fscanf(infile, "%" SCNu32 "\n", &total_vertices);
     /* checks if vertices are within bounds */
-    if (total_vertices > VERTICES || total_vertices != 1) {
+    if (hold != 1 || total_vertices > VERTICES) {
         fprintf(stderr, "Error: Number of vertices malformed.\n");
         return -1;
     }
 
     /* cities array memory allocation */
     char **cities;
-    cities = calloc(total_vertices, sizeof(char *));
+    cities = (char**) calloc(total_vertices, sizeof(char *));
 
     /* storing cities in array */
     for (uint32_t c = 0; c < total_vertices; c++) {
@@ -131,11 +130,11 @@ int main(int argc, char **argv) {
     G = graph_create(total_vertices, undirected);
 
     /* reads vertices and edge weights and checks if valid */
-    while ((hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k)) != EOF) {
+    while ((hold = fscanf(infile, "%d %d %d", &i, &j, &k))!= EOF) {
         if (hold == 3) {
             graph_add_edge(G, i, j, k);
         } else {
-            fprintf(stderr, "Error: Vertex edge is malformed");
+            fprintf(stderr, "Error: Vertex edge is malformed.\n");
             return -1;
         }
     }
