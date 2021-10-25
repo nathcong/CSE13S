@@ -26,7 +26,7 @@ void dfs(Graph *G, uint32_t v, Path *curr, Path *shortest, char *cities[], FILE 
         if (graph_has_edge(G, v, c) == true) {
             if (graph_visited(G, c) == false) {
                 dfs(G, c, curr, shortest, cities, outfile);
-            } else {
+            } else if ((c == START_VERTEX) && (path_vertices(curr) == graph_vertices(G))) {
                 path_push_vertex(curr, c, G);
                 if (path_length(curr) == 0 || path_length(curr) < path_length(shortest)) {
                     path_copy(shortest, curr);
@@ -96,12 +96,12 @@ int main(int argc, char **argv) {
         fprintf(outfile, "  Traveling Salesman Problem using Depth-First Search\n");
         fprintf(outfile, "USAGE\n");
         fprintf(outfile, "  ./tsp [-uvhi:o:] [-i infile] [-o outfile]\n\n");
-        fprintf(outfile, "OPTIONS");
-        fprintf(outfile, "  -u		Use undirected graph.");
-        fprintf(outfile, "  -v		Enable verbose printing.");
-        fprintf(outfile, "  -h		Program help message.");
-        fprintf(outfile, "  -i infile	Input file containing graph. Default is stdin.");
-        fprintf(outfile, "  -o outfile 	Output file containing graph. Default is stdout.");
+        fprintf(outfile, "OPTIONS\n");
+        fprintf(outfile, "  -u		Use undirected graph.\n");
+        fprintf(outfile, "  -v		Enable verbose printing.\n");
+        fprintf(outfile, "  -h		Program help message.\n");
+        fprintf(outfile, "  -i infile	Input file containing graph. Default is stdin.\n");
+        fprintf(outfile, "  -o outfile 	Output file containing graph. Default is stdout.\n");
         exit(0);
     }
 
