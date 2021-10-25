@@ -127,7 +127,8 @@ int main(int argc, char **argv) {
     hold = 0;
 
     /* graph creation */
-    Graph *G = graph_create(total_vertices, undirected);
+    Graph *G;
+    G = graph_create(total_vertices, undirected);
 
     /* reads vertices and edge weights and checks if valid */
     while ((hold = fscanf(infile, "%" SCNu32 "%" SCNu32 "%" SCNu32 "\n", &i, &j, &k)) != EOF) {
