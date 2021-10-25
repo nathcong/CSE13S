@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     }
 
     /* cities array memory allocation */
-    cities = (char**) calloc(total_vertices, sizeof(char *));
+    cities = (char **) calloc(total_vertices, sizeof(char *));
 
     /* storing cities in array */
     for (uint32_t c = 0; c < total_vertices; c++) {
@@ -131,15 +131,15 @@ int main(int argc, char **argv) {
     G = graph_create(total_vertices, undirected);
 
     /* reads vertices and edge weights and checks if valid */
-    while ((hold = fscanf(infile, "%d %d %d", &i, &j, &k))!= EOF) {
+    while ((hold = fscanf(infile, "%d %d %d", &i, &j, &k)) != EOF) {
         if (hold == 3) {
             graph_add_edge(G, i, j, k);
         } else {
             fprintf(stderr, "Error: Vertex edge is malformed.\n");
-	    for (uint32_t c = 0; c < total_vertices; c++) {
+            for (uint32_t c = 0; c < total_vertices; c++) {
                 free(cities[i]);
-    	    }
-	    free(&G);
+            }
+            free(&G);
             return -1;
         }
     }
