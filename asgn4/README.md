@@ -11,15 +11,22 @@ Following this the library will be compiled and generated into multiple executab
 ## How to run this program
  
 SYNOPSIS
+
   Traveling Salesman Problem using Depth-First Search
 
 USAGE
+
   ./tsp [-uvhi:o:] [-i infile] [-o outfile]
 
 OPTIONS
+
   -u            Use undirected graph.
+  
   -v            Enable verbose printing.
+  
   -h            Program help message.
+  
   -i infile     Input file containing graph. Default is stdin.
+  
   -o outfile    Output file containing graph. Default is stdout.
 
