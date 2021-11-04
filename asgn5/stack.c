@@ -27,8 +27,7 @@ Stack *
     return s;
 }
 
-void stack_delete(Stack **s);
-{
+void stack_delete(Stack **s) {
     if (*s && (*s)->items) {
         free((*s)->items);
         free(*s);

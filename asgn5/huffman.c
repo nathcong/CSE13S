@@ -12,4 +12,3 @@ void dump_tree(int outfile, Node *root);
 Node *rebuild_tree(uint16_t nbytes, uint8_t tree[static nbytes]);
 
 void delete_tree(Node **root);
-
