@@ -26,7 +26,7 @@ bool code_empty(Code *c) {
     }
 }
 bool code_full(Code *c) {
-    if (c->top == MAX_CODE_SIZE) {
+    if (c->top == ALPHABET) {
         return true;
     } else {
         return false;
