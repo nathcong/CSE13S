@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 struct Stack {
     uint32_t top;
@@ -12,8 +13,7 @@ struct Stack {
     uint32_t Node **items;
 };
 
-Stack *
-    stack_create(uint32_t capacity) {
+Stack *stack_create(uint32_t capacity) {
     Stack *s = (Stack *) malloc(sizeof(Stack));
     if (s) {
         s->top = 0;
