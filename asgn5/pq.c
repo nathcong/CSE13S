@@ -8,17 +8,17 @@
 
 struct PriorityQueue {
     uint32_t capacity;
-    uint32_t size;
+    uint32_t top;
     Node **items;
 }
 
 PriorityQueue *
     pq_create(uint32_t capacity) {
-    PriorityQueue *pq = (PriorityQueue *) malloc(sizeof(PriorityQueue));
+    PriorityQueue *q = (PriorityQueue *) malloc(sizeof(PriorityQueue));
     if (q) {
-        q->size = 0;
+        q->top = 0;
         q->capacity = capacity;
-        q->items = (uint32_t *) calloc(capacity, sizeof(Node));
+        q->items = (Node *) calloc(capacity, sizeof(Node));
         if (!q->items) {
             free(q);
             q = NULL;
@@ -45,7 +45,7 @@ bool pq_empty(PriorityQueue *q) {
 }
 
 bool pq_full(PriorityQueue *q) {
-    if (q->size == q->capacity) {
+    if (q->top == q->capacity) {
         return true;
     } else {
         return false;
@@ -56,10 +56,43 @@ uint32_t pq_size(PriorityQueue *q) {
     return q->size;
 }
 
+void pq_insertion_sort(PriorityQueue *q) {
+    uint32_t i;
+    uint32_t j;
+    Node *temp;
+    uint32_t m = q->top;
+    for (i = 0; i < m; i++) {
+        j = i;
+        temp = q->items[i];
+        while (j > 0 && temp->frequency > q->items[j - 1]->frequency) == -1) {
+            q->items[j] = q->items[j - 1];
+            j -= 1;
+        }
+        q->items[j] = temp;
+    }
+}
+
 bool enqueue(PriorityQueue *q, Node *n) {
+	if (q->top < q->capacity) {
+		q->items[q->top] = n;
+		q->top++;
+		pq_insertion_sort(q);
+		return true;
+	}
+	else {
+		return false;
+	}	
 }
 
 bool dequeue(PriorityQueue *q, Node **n) {
+	if (q->top != 0) {
+		*n = q->items[q->top - 1];
+		q->top--;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void pq_print(PriorityQueue *q) {
