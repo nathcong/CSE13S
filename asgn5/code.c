@@ -66,7 +66,7 @@ bool code_get_bit(Code *c, uint32_t i) {
 
 bool code_push_bit(Code *c, uint8_t bit) {
     if (c->top < MAX_CODE_SIZE) {
-        code_set_bit(c->bits, c->top) = bit;
+        code_set_bit(&c->bits, c->top) = bit;
         c->top++;
         return true;
     } else {
@@ -76,7 +76,7 @@ bool code_push_bit(Code *c, uint8_t bit) {
 
 bool code_pop_bit(Code *c, uint8_t *bit) {
     if (c->top != 0) {
-        *bit = code_get_bit(c->bits, c->top);
+        *bit = code_get_bit(&c->bits, c->top);
         c->top--;
         return true;
     } else {
