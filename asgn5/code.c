@@ -34,7 +34,7 @@ bool code_full(Code *c) {
 }
 
 bool code_set_bit(Code *c, uint32_t i) {
-    if (i / 8 < MAX_CODE_SIZE) {
+    if (i < ALPHABET) {
         c->bits[i / 8] |= (1 << (i % 8));
         return true;
     } else {
@@ -43,7 +43,7 @@ bool code_set_bit(Code *c, uint32_t i) {
 }
 
 bool code_clr_bit(Code *c, uint32_t i) {
-    if (i / 8 < MAX_CODE_SIZE) {
+    if (i < ALPHABET) {
         c->bits[i / 8] &= (0 << (i % 8));
         return true;
     } else {
@@ -52,7 +52,7 @@ bool code_clr_bit(Code *c, uint32_t i) {
 }
 
 bool code_get_bit(Code *c, uint32_t i) {
-    if (i / 8 < MAX_CODE_SIZE) {
+    if (i < ALPHABET) {
         uint8_t retrieved_bit = ((c->bits[i / 8]) >> i % 8) & 1;
         if (retrieved_bit == 1) {
             return true;
