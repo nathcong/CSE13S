@@ -18,7 +18,7 @@ PriorityQueue *
     if (q) {
         q->top = 0;
         q->capacity = capacity;
-        q->items = (Node *) calloc(capacity, sizeof(Node));
+        q->items = (Node **) calloc(capacity, sizeof(Node *));
         if (!q->items) {
             free(q);
             q = NULL;
@@ -37,7 +37,7 @@ void pq_delete(PriorityQueue **q) {
 }
 
 bool pq_empty(PriorityQueue *q) {
-    if (size == 0) {
+    if (q->top == 0) {
         return true;
     } else {
         return false;
@@ -53,7 +53,7 @@ bool pq_full(PriorityQueue *q) {
 }
 
 uint32_t pq_size(PriorityQueue *q) {
-    return q->size;
+    return q->top;
 }
 
 void pq_insertion_sort(PriorityQueue *q) {
@@ -64,7 +64,7 @@ void pq_insertion_sort(PriorityQueue *q) {
     for (i = 0; i < m; i++) {
         j = i;
         temp = q->items[i];
-        while (j > 0 && temp->frequency > q->items[j - 1]->frequency) == -1) {
+        while (j > 0 && temp->frequency > q->items[j - 1]->frequency) {
                 q->items[j] = q->items[j - 1];
                 j -= 1;
             }
@@ -94,7 +94,7 @@ bool dequeue(PriorityQueue *q, Node **n) {
 }
 
 void pq_print(PriorityQueue *q) {
-    for (uint32_t i = 0; i < q->size; i++) {
+    for (uint32_t i = 0; i < q->top; i++) {
         node_print(q->items[i]);
     }
 }
