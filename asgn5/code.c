@@ -8,11 +8,9 @@
 
 Code code_init(void) {
     Code c;
-    if (c) {
-        c->top = 0;
-        for (uint32_t i = 0; i < MAX_CODE_SIZE; i++) {
-            c.bit[i] = 0x00;
-        }
+    c.top = 0;
+    for (uint32_t i = 0; i < MAX_CODE_SIZE; i++) {
+        c.bits[i] = 0x00;
     }
     return c;
 }
@@ -55,7 +53,7 @@ bool code_clr_bit(Code *c, uint32_t i) {
 
 bool code_get_bit(Code *c, uint32_t i) {
     if (i / 8 < MAX_CODE_SIZE) {
-        retrieved_bit = ((c->bits[i / 8]) >> i % 8) & 1;
+        uint8_t retrieved_bit = ((c->bits[i / 8]) >> i % 8) & 1;
         if (retrieved_bit == 1) {
             return true;
         } else {

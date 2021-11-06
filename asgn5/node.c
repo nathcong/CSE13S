@@ -27,6 +27,5 @@ Node *node_join(Node *left, Node *right) {
 }
 
 void node_print(Node *n) {
-    fprintf(stdout, "%d %d %d", n->symbol, n->left, n->right);
-    return;
+    ;
 }
