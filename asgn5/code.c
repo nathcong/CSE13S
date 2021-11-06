@@ -45,7 +45,7 @@ bool code_set_bit(Code *c, uint32_t i) {
 bool code_clr_bit(Code *c, uint32_t i) {
     if (i / 8 < MAX_CODE_SIZE) {
         c->bits[i / 8] &= (0 << (i % 8));
-        return false;
+        return true;
     } else {
         return false;
     }
