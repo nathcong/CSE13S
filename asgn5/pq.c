@@ -12,8 +12,7 @@ struct PriorityQueue {
     Node **items;
 };
 
-PriorityQueue *
-    pq_create(uint32_t capacity) {
+PriorityQueue *pq_create(uint32_t capacity) {
     PriorityQueue *q = (PriorityQueue *) malloc(sizeof(PriorityQueue));
     if (q) {
         q->top = 0;
@@ -65,9 +64,9 @@ void pq_insertion_sort(PriorityQueue *q) {
         j = i;
         temp = q->items[i];
         while (j > 0 && temp->frequency > q->items[j - 1]->frequency) {
-                q->items[j] = q->items[j - 1];
-                j -= 1;
-            }
+            q->items[j] = q->items[j - 1];
+            j -= 1;
+        }
         q->items[j] = temp;
     }
 }
