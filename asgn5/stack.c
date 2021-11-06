@@ -10,7 +10,7 @@ struct Stack {
     uint32_t top;
     uint32_t capacity;
     uint32_t Node **items;
-}
+};
 
 Stack *
     stack_create(uint32_t capacity) {
