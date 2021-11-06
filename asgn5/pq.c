@@ -65,34 +65,32 @@ void pq_insertion_sort(PriorityQueue *q) {
         j = i;
         temp = q->items[i];
         while (j > 0 && temp->frequency > q->items[j - 1]->frequency) == -1) {
-            q->items[j] = q->items[j - 1];
-            j -= 1;
-        }
+                q->items[j] = q->items[j - 1];
+                j -= 1;
+            }
         q->items[j] = temp;
     }
 }
 
 bool enqueue(PriorityQueue *q, Node *n) {
-	if (q->top < q->capacity) {
-		q->items[q->top] = n;
-		q->top++;
-		pq_insertion_sort(q);
-		return true;
-	}
-	else {
-		return false;
-	}	
+    if (q->top < q->capacity) {
+        q->items[q->top] = n;
+        q->top++;
+        pq_insertion_sort(q);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool dequeue(PriorityQueue *q, Node **n) {
-	if (q->top != 0) {
-		*n = q->items[q->top - 1];
-		q->top--;
-		return true;
-	}
-	else {
-		return false;
-	}
+    if (q->top != 0) {
+        *n = q->items[q->top - 1];
+        q->top--;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void pq_print(PriorityQueue *q) {
