@@ -19,7 +19,7 @@ void node_delete(Node **n) {
     return;
 }
 Node *node_join(Node *left, Node *right) {
-    uint64_t new_frequency = left->frequency + right->frequnency;
+    uint64_t new_frequency = left->frequency + right->frequency;
     Node *n = node_create('$', new_frequency);
     n->left = left;
     n->right = right;
