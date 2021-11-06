@@ -80,9 +80,9 @@ bool code_push_bit(Code *c, uint8_t bit) {
 
 bool code_pop_bit(Code *c, uint8_t *bit) {
     if (c->top != 0) {
+	c->top--;
         *bit = code_get_bit(c, c->top);
         code_clr_bit(c, c->top);
-        c->top--;
         return true;
     } else {
         return false;
