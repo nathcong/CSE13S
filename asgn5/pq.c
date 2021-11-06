@@ -10,7 +10,7 @@ struct PriorityQueue {
     uint32_t capacity;
     uint32_t top;
     Node **items;
-}
+};
 
 PriorityQueue *
     pq_create(uint32_t capacity) {
