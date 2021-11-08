@@ -14,12 +14,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #define OPTIONS "hi:o:v"
 
 int main(int argc, char **argv) {
     bool help = false;
     bool compression = false;
-
+    int infile = STDIN_FILENO;
+    int outfile = STDOUT_FILENO;
+    int opt = 0;
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         /* switch statement to add functions to the set for them to be run */
         switch (opt) {
@@ -32,16 +37,16 @@ int main(int argc, char **argv) {
             break;
         }
         case 'i': {
-            infile = fopen(optarg, "r");
-            if (infile == NULL) {
+            infile = open(optarg, O_RDONLY);
+            if (infile == -1) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             break;
         }
         case 'o': {
-            outfile = fopen(optarg, "w");
-            if (outfile == NULL) {
+            outfile = open(optarg, O_WRONLY | O_CREAT);
+            if (outfile == -1) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
@@ -55,16 +60,16 @@ int main(int argc, char **argv) {
     }
 
     if (help == true) {
-        fprintf(outfile, "SYNOPSIS\n");
-        fprintf(outfile,
+        fprintf(stderr, "SYNOPSIS\n");
+        fprintf(stderr,
             "  A Huffman decoder.\n  Decompresses a file using the Huffman coding algorithm.");
-        fprintf(outfile, "USAGE\n");
-        fprintf(outfile, "  ./decode [-hvi:o:] [-i infile] [-o outfile]\n\n");
-        fprintf(outfile, "OPTIONS\n");
-        fprintf(outfile, "  -v          Print decompression statistics.\n");
-        fprintf(outfile, "  -h          Program help message.\n");
-        fprintf(outfile, "  -i infile   Input file to decompress. Default is stdin.\n");
-        fprintf(outfile, "  -o outfile  Output file with decompressed data. Default is stdout.\n");
+        fprintf(stderr, "USAGE\n");
+        fprintf(stderr, "  ./decode [-hvi:o:] [-i infile] [-o outfile]\n\n");
+        fprintf(stderr, "OPTIONS\n");
+        fprintf(stderr, "  -v          Print decompression statistics.\n");
+        fprintf(stderr, "  -h          Program help message.\n");
+        fprintf(stderr, "  -i infile   Input file to decompress. Default is stdin.\n");
+        fprintf(stderr, "  -o outfile  Output file with decompressed data. Default is stdout.\n");
         exit(0);
     }
 }
