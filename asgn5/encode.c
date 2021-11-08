@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     // seek and get file permissions //
     lseek(infile, 0, SEEK_SET);
     fstat(infile, &perms);
-    fchmod(infile, perms.st_mode);
+    fchmod(outfile, perms.st_mode);
 
     // read file and get histogram data, count number of symbols //
     while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
@@ -115,11 +115,11 @@ int main(int argc, char **argv) {
 
     // build tree and build codes //
     Node *root = build_tree(histogram);
-    Code codetable[ALPHABET] = { 0 };
+    Code codetable[ALPHABET];
     build_codes(root, codetable);
 
     // header construction //
-    Header head = { 0, 0, 0, 0, };
+    Header head;
     head.magic = MAGIC;
     head.permissions = perms.st_mode;
     head.tree_size = (3 * existing_symbols) - 1;
