@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
 
     // writes stdin to temp file //
     if (lseek(infile, 0, SEEK_SET) == -1) {
-        int tempfile = open("/tempencode.temp", O_TRUNC | O_CREAT | O_RDWR, 0600);
+        int tempfile = open("/tempencode.temp", O_TRUNC | O_CREAT | O_RDWR, 600);
         while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
             write_bytes(tempfile, buf, reading);
         }
