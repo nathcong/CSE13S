@@ -124,6 +124,7 @@ int main(int argc, char **argv) {
     head.permissions = perms.st_mode;
     head.tree_size = (3 * existing_symbols) - 1;
     head.file_size = perms.st_size;
+    write_bytes(outfile, (uint8_t *) &head, sizeof(head));
 
     // write tree and code to outfile //
     dump_tree(outfile, root);
@@ -148,4 +149,5 @@ int main(int argc, char **argv) {
     close(infile);
     close(outfile);
     delete_tree(&root);
+    node_delete(&root);
 }
