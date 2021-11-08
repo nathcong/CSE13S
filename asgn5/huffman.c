@@ -55,7 +55,6 @@ void build_codes(Node *root, Code table[static ALPHABET]) {
 
 void dump_tree(int outfile, Node *root) {
     int i = 0;
-    buf[i++]
     if (root) {
         dump_tree(outfile, root->left);
         dump_tree(outfile, root->right);
