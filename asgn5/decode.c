@@ -24,7 +24,11 @@ int main(int argc, char **argv) {
     bool decompression = false;
     int infile = STDIN_FILENO;
     int outfile = STDOUT_FILENO;
+    uint8_t buf[BLOCK];
+    Node *n;
+
     int opt = 0;
+
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         /* switch statement to add functions to the set for them to be run */
         switch (opt) {
@@ -58,7 +62,7 @@ int main(int argc, char **argv) {
         }
         }
     }
-
+    /* print help message */
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr,
@@ -72,10 +76,63 @@ int main(int argc, char **argv) {
         fprintf(stderr, "  -o outfile  Output file with decompressed data. Default is stdout.\n");
         exit(0);
     }
+    /* read header and check compliances */
+    Header head;
+    read_bytes(infile, (uint8_t *) &head, sizeof(Header));
+
+    if (head.magic != MAGIC) {
+	    fprintf(stderr, "Error: Magic number does not match, header unreadable.");
+	    return -1;
+    }
+
+    /* get file permissions */
+    struct stat perms;
+    fstat(infile, &perms);
+    fchmod(outfile, head.permissions);
+
+    /* rebuild tree from dump */
+    uint8_t tree_dump[head.tree_size];
+    read_bytes(infile, tree_dump, head.tree_size);
+    Node *tree_root = rebuild_tree(head.tree_size, tree_dump);
+    n = tree_root;
+
+    /* File bit reading */
+    uint8_t bit;
+    uint32_t index = 0;
+    while (bytes_written < head.file_size && read_bit(infile, &bit)) {
+	if (bit == 1) {
+		n = n->right;	
+	}
+	if (bit == 0) {
+		n = n->left;
+	}
+	if (n->left == NULL && n->right == NULL) {
+		buf[index] = n->symbol;
+		index++;
+
+		if (index == BLOCK) {
+			write_bytes(outfile, buf, BLOCK);
+			index = 0;
+		}
+		n = tree_root;
+
+	}
+
+    }
+
+    /* after finished reading bits, write leftover */
+    write_bytes(outfile, buf, index);
+
 
     if (decompression == true) {
         fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_read);
         fprintf(stderr, "Decompressed file size: %" PRIu64 " bytes\n", bytes_written);
         fprintf(stderr, "Space saving: %.5f%%", 100 * (1 - ((double) bytes_read / bytes_written)));
     }
+    
+    /* close files and free memory */
+    close(infile);
+    close(outfile);
+    delete_tree(&tree_root);
+    node_delete(&tree_root);
 }
