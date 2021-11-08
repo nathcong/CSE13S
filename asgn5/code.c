@@ -55,7 +55,7 @@ bool code_get_bit(Code *c, uint32_t i) {
     if (i < ALPHABET) {
         uint8_t retrieved_bit = ((c->bits[i / 8]) >> i % 8) & 1;
         if (retrieved_bit == 1) {
-            return false;
+            return true;
         } else {
             return false;
         }
@@ -67,7 +67,7 @@ bool code_get_bit(Code *c, uint32_t i) {
 bool code_push_bit(Code *c, uint8_t bit) {
     if (c->top < ALPHABET) {
         if (bit == 1) {
-            code_set_bit(c, c->top);
+            code_clr_bit(c, c->top);
         } else {
             code_clr_bit(c, c->top);
         }
