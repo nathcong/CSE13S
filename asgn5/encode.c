@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    // print help message //
+    /* print help message */
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr,
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
         exit(0);
     }
 
-    // generate histogram array //
+    /* generate histogram array */
     uint64_t histogram[ALPHABET];
     for (int i = 0; i < ALPHABET; i++) {
         histogram[i] = 0;
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
     histogram[0]++;
     histogram[255]++;
 
-    // writes stdin to temp file //
+        /* writes stdin to temp file */
     if (lseek(infile, 0, SEEK_SET) == -1) {
         int tempfile = open("/tempencode.temp", O_TRUNC | O_CREAT | O_RDWR, 600);
         while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
@@ -96,12 +96,12 @@ int main(int argc, char **argv) {
         infile = tempfile;
     }
 
-    // seek and get file permissions //
+    /* seek and get file permissions */
     lseek(infile, 0, SEEK_SET);
     fstat(infile, &perms);
     fchmod(outfile, perms.st_mode);
 
-    // read file and get histogram data, count number of symbols //
+    /* read file and get histogram data, count number of symbols */
     while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
         for (uint64_t i = 0; i < reading; i++) {
             histogram[buf[i]]++;
@@ -113,12 +113,12 @@ int main(int argc, char **argv) {
         }
     }
 
-    // build tree and build codes //
+    /* build tree and build codes */
     Node *root = build_tree(histogram);
     Code codetable[ALPHABET];
     build_codes(root, codetable);
 
-    // header construction //
+    /* header construction */
     Header head;
     head.magic = MAGIC;
     head.permissions = perms.st_mode;
@@ -126,11 +126,11 @@ int main(int argc, char **argv) {
     head.file_size = perms.st_size;
     write_bytes(outfile, (uint8_t *) &head, sizeof(head));
 
-    // write tree and code to outfile //
+    /* write tree and code to outfile */
     dump_tree(outfile, root);
     lseek(infile, 0, SEEK_SET);
 
-    // lseek to write code to outfile //
+    /* lseek to write code to outfile */
     while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
         for (uint32_t i = 0; i < reading; i++) {
             write_code(outfile, &codetable[buf[i]]);
@@ -138,14 +138,14 @@ int main(int argc, char **argv) {
     }
     flush_codes(outfile);
 
-    // print compression stats //
+    /* print compression stats */
     if (compression_stats == true) {
         fprintf(stderr, "Uncompressed file size: %" PRIu64 " bytes\n", bytes_read);
         fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_written);
         fprintf(stderr, "Space saving: %" PRIu64, 100 * (1 - bytes_written / bytes_read));
     }
 
-    // close files and free memory //
+    /* close files and free memory */
     close(infile);
     close(outfile);
     delete_tree(&root);
