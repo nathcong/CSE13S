@@ -21,7 +21,7 @@
 
 int main(int argc, char **argv) {
     bool help = false;
-    bool compression = false;
+    bool decompression = false;
     int infile = STDIN_FILENO;
     int outfile = STDOUT_FILENO;
     int opt = 0;
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'v': {
-            compression = true;
+            decompression = true;
             break;
         }
         case 'i': {
@@ -71,5 +71,11 @@ int main(int argc, char **argv) {
         fprintf(stderr, "  -i infile   Input file to decompress. Default is stdin.\n");
         fprintf(stderr, "  -o outfile  Output file with decompressed data. Default is stdout.\n");
         exit(0);
+    }
+
+    if (decompression == true) {
+        fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_read);
+        fprintf(stderr, "Decompressed file size: %" PRIu64 " bytes\n", bytes_written);
+        fprintf(stderr, "Space saving: %.5f%%", 100 * (1 - ((double) bytes_read / bytes_written)));
     }
 }

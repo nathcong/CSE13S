@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
     histogram[0]++;
     histogram[255]++;
 
-        /* writes stdin to temp file */
+    /* writes stdin to temp file */
     if (lseek(infile, 0, SEEK_SET) == -1) {
         int tempfile = open("/tempencode.temp", O_TRUNC | O_CREAT | O_RDWR, 600);
         while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
@@ -140,9 +140,10 @@ int main(int argc, char **argv) {
 
     /* print compression stats */
     if (compression_stats == true) {
-        fprintf(stderr, "Uncompressed file size: %" PRIu64 " bytes\n", bytes_read);
+        fprintf(stderr, "Uncompressed file size: %" PRIu64 " bytes\n", bytes_read / 2);
         fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_written);
-        fprintf(stderr, "Space saving: %" PRIu64, 100 * (1 - bytes_written / bytes_read));
+        fprintf(
+            stderr, "Space saving: %.5f%%\n", 100 * (1 - ((double) bytes_read / bytes_written)));
     }
 
     /* close files and free memory */
