@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
 
     // lseek to write code to outfile //
     while ((reading = read_bytes(infile, buf, BLOCK)) > 0) {
-        for (uint32_t i = 0; i < bytes_read; i++) {
+        for (uint32_t i = 0; i < reading; i++) {
             write_code(outfile, &codetable[buf[i]]);
         }
     }
