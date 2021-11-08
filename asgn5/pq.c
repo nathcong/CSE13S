@@ -16,6 +16,7 @@ PriorityQueue *pq_create(uint32_t capacity) {
     PriorityQueue *q = (PriorityQueue *) malloc(sizeof(PriorityQueue));
     if (q) {
         q->top = 0;
+	q->capacity = capacity;
 
         q->items = (Node **) calloc(capacity, sizeof(Node *));
         if (!q->items) {
