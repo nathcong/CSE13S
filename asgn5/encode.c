@@ -115,11 +115,11 @@ int main(int argc, char **argv) {
 
     // build tree and build codes //
     Node *root = build_tree(histogram);
-    Code codetable[ALPHABET];
+    Code codetable[ALPHABET] = { 0 };
     build_codes(root, codetable);
 
     // header construction //
-    Header head;
+    Header head = { 0, 0, 0, 0, };
     head.magic = MAGIC;
     head.permissions = perms.st_mode;
     head.tree_size = (3 * existing_symbols) - 1;
