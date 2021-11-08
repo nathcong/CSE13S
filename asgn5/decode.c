@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     write_bytes(outfile, buf, index);
 
     if (decompression == true) {
-        fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_read);
+        fprintf(stderr, "\nCompressed file size: %" PRIu64 " bytes\n", bytes_read);
         fprintf(stderr, "Decompressed file size: %" PRIu64 " bytes\n", bytes_written);
         fprintf(stderr, "Space saving: %.5f%%", 100 * (1 - ((double) bytes_read / bytes_written)));
     }

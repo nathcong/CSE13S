@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 
     /* print compression stats */
     if (compression_stats == true) {
-        fprintf(stderr, "Uncompressed file size: %" PRIu64 " bytes\n", bytes_read / 2);
+        fprintf(stderr, "\nUncompressed file size: %" PRIu64 " bytes\n", bytes_read / 2);
         fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_written);
         fprintf(
             stderr, "Space saving: %.5f%%\n", 100 * (1 - ((double) bytes_read / bytes_written)));

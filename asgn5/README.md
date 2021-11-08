@@ -5,7 +5,7 @@ This program is a library that compresses and decompresses data using the Huffma
 
 ## Program Compiling
 To compile the complete program, input:
->*make all*
+>*make*
 
 Following this the library will be compiled and generated into multiple executable binaries, but the executables used to run the library are encode and decode.
 
@@ -53,3 +53,5 @@ OPTIONS
 
 -o *outfile* Output file with decompressed data. Default is stdout.
 
+## Known bugs
+Encode and decode do not compress or decompress inputs correctly. Reasons for this are unknown.
