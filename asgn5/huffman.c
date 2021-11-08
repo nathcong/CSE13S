@@ -4,14 +4,13 @@
 #include "stack.h"
 #include "pq.h"
 #include "io.h"
-#include "header.h"
 
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
-uint8_t buf[tree_size];
+uint8_t buf[MAX_TREE_SIZE];
 
 Node *build_tree(uint64_t hist[static ALPHABET]) {
     Node *n;
