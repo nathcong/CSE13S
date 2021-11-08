@@ -81,8 +81,8 @@ int main(int argc, char **argv) {
     read_bytes(infile, (uint8_t *) &head, sizeof(Header));
 
     if (head.magic != MAGIC) {
-	    fprintf(stderr, "Error: Magic number does not match, header unreadable.");
-	    return -1;
+        fprintf(stderr, "Error: Magic number does not match, header unreadable.");
+        return -1;
     }
 
     /* get file permissions */
@@ -100,36 +100,33 @@ int main(int argc, char **argv) {
     uint8_t bit;
     uint32_t index = 0;
     while (bytes_written < head.file_size && read_bit(infile, &bit)) {
-	if (bit == 1) {
-		n = n->right;	
-	}
-	if (bit == 0) {
-		n = n->left;
-	}
-	if (n->left == NULL && n->right == NULL) {
-		buf[index] = n->symbol;
-		index++;
+        if (bit == 1) {
+            n = n->right;
+        }
+        if (bit == 0) {
+            n = n->left;
+        }
+        if (n->left == NULL && n->right == NULL) {
+            buf[index] = n->symbol;
+            index++;
 
-		if (index == BLOCK) {
-			write_bytes(outfile, buf, BLOCK);
-			index = 0;
-		}
-		n = tree_root;
-
-	}
-
+            if (index == BLOCK) {
+                write_bytes(outfile, buf, BLOCK);
+                index = 0;
+            }
+            n = tree_root;
+        }
     }
 
     /* after finished reading bits, write leftover */
     write_bytes(outfile, buf, index);
-
 
     if (decompression == true) {
         fprintf(stderr, "Compressed file size: %" PRIu64 " bytes\n", bytes_read);
         fprintf(stderr, "Decompressed file size: %" PRIu64 " bytes\n", bytes_written);
         fprintf(stderr, "Space saving: %.5f%%", 100 * (1 - ((double) bytes_read / bytes_written)));
     }
-    
+
     /* close files and free memory */
     close(infile);
     close(outfile);
