@@ -59,13 +59,13 @@ void dump_tree(int outfile, Node *root) {
         dump_tree(outfile, root->left);
         dump_tree(outfile, root->right);
         if (root->left == NULL && root->right == NULL) {
-	    buf[i++] = 'L';
-            write_bytes(outfile, &buf[i], 1);
-	    buf[i++] = root->symbol;
-            write_bytes(outfile, &buf[i], 1);
+            buf[i] = 'L';
+            write_bytes(outfile, &buf[i++], 1);
+            buf[i] = root->symbol;
+            write_bytes(outfile, &buf[i++], 1);
         } else {
-	    buf[i++] = 'I';
-            write_bytes(outfile, &buf[i], 1);
+            buf[i] = 'I';
+            write_bytes(outfile, &buf[i++], 1);
         }
     }
 }
