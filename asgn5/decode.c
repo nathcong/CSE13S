@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr,
-            "  A Huffman decoder.\n  Decompresses a file using the Huffman coding algorithm.");
+            "  A Huffman decoder.\n  Decompresses a file using the Huffman coding algorithm.\n\n");
         fprintf(stderr, "USAGE\n");
         fprintf(stderr, "  ./decode [-hvi:o:] [-i infile] [-o outfile]\n\n");
         fprintf(stderr, "OPTIONS\n");

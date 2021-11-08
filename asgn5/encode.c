@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr,
-            "  A Huffman encoder.\n  Compresses a file using the Huffman coding algorithm.");
+            "  A Huffman encoder.\n  Compresses a file using the Huffman coding algorithm.\n\n");
         fprintf(stderr, "USAGE\n");
         fprintf(stderr, "  ./encode [-hvi:o:] [-i infile] [-o outfile]\n\n");
         fprintf(stderr, "OPTIONS\n");

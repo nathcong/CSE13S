@@ -4,11 +4,14 @@
 #include "stack.h"
 #include "pq.h"
 #include "io.h"
+#include "header.h"
 
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+
+uint8_t buf[tree_size];
 
 Node *build_tree(uint64_t hist[static ALPHABET]) {
     Node *n;
@@ -52,19 +55,19 @@ void build_codes(Node *root, Code table[static ALPHABET]) {
 }
 
 void dump_tree(int outfile, Node *root) {
-    uint8_t buf[BLOCK];
-    uint32_t i = 0;
-    buf[i++] = 'L';
-    buf[i++] = 'I';
-    buf[i++] = root->symbol;
+    int i = 0;
+    buf[i++]
     if (root) {
         dump_tree(outfile, root->left);
         dump_tree(outfile, root->right);
-        if (!root->left && !root->right) {
-            write_bytes(outfile, &buf[0], BLOCK);
-            write_bytes(outfile, &buf[1], BLOCK);
+        if (root->left == NULL && root->right == NULL) {
+	    buf[i++] = 'L';
+            write_bytes(outfile, &buf[i], 1);
+	    buf[i++] = root->symbol;
+            write_bytes(outfile, &buf[i], 1);
         } else {
-            write_bytes(outfile, &buf[2], BLOCK);
+	    buf[i++] = 'I';
+            write_bytes(outfile, &buf[i], 1);
         }
     }
 }
