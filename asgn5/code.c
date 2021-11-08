@@ -55,7 +55,7 @@ bool code_get_bit(Code *c, uint32_t i) {
     if (i < ALPHABET) {
         uint8_t retrieved_bit = ((c->bits[i / 8]) >> i % 8) & 1;
         if (retrieved_bit == 1) {
-            return true;
+            return false;
         } else {
             return false;
         }
