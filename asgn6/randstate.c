@@ -1,3 +1,5 @@
+#include "randstate.h"
+
 #include <stdint.h>
 #include <gmp.h>
 
