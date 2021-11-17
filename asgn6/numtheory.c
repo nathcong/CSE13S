@@ -69,8 +69,6 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 	mpz_set(i, t);
     }
 
-    mpz_set(i, t);
-
     /* free memory of temporary variables */
     mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
 }
