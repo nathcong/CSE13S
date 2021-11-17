@@ -33,7 +33,7 @@ void gcd(mpz_t d, mpz_t a, mpz_t b) {
 
 void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_t r, tempr, t, tempt, q, originalr, originalt, timesr, timest;
-    mpz_inits(r, tempr, t, tempt, q, originalr, originalt, timesr, timest NULL);
+    mpz_inits(r, tempr, t, tempt, q, originalr, originalt, timesr, timest, NULL);
 
     mpz_set(r, n);
     mpz_set(tempr, a);
