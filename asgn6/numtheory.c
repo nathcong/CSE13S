@@ -138,11 +138,9 @@ bool is_prime(mpz_t n, uint64_t iters) {
     mpz_sub_ui(tempn, n, 1);
 
     mpz_set(r, tempn);
-    if ((mpz_even_p(r)) != 0) {
-        while ((mpz_even_p(r)) != 0) {
-            mpz_fdiv_q_ui(r, r, 2);
-            mpz_add_ui(s, s, 1);
-        }
+    while ((mpz_even_p(r)) != 0) {
+        mpz_fdiv_q_ui(r, r, 2);
+        mpz_add_ui(s, s, 1);
     }
 
     mpz_sub_ui(temps, s, 1);
@@ -153,7 +151,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
 	}
 
         pow_mod(y, a, r, n);
-        if ((mpz_cmp_ui(y, 1)) != 0 && (mpz_cmp(y, tempn)) != 0) {
+        if (((mpz_cmp_ui(y, 1)) != 0) && ((mpz_cmp(y, tempn)) != 0)) {
             mpz_set_ui(j, 1);
 
             while ((mpz_cmp(j, temps)) <= 0 && (mpz_cmp(y, tempn)) != 0) {
