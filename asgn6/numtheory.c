@@ -155,7 +155,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     for (uint64_t i = 1; i <= iters; i++) {
 	mpz_sub_ui(random, n, 3);
         mpz_urandomm(a, state, random);
-	mpz_add(a, a, 2);
+	mpz_add_ui(a, a, 2);
 
         pow_mod(y, a, r, n);
         if (((mpz_cmp_ui(y, 1)) != 0) && ((mpz_cmp(y, tempn)) != 0)) {
