@@ -66,6 +66,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 
     if (mpz_cmp_ui(t, 0) < 0) {
         mpz_add(t, t, n);
+	mpz_set(i, t);
     }
 
     /* free memory of temporary variables */
