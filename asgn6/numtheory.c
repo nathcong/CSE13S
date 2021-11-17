@@ -79,21 +79,22 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 }
 
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
-    mpz_t p, v, d;
-    mpz_inits(p, v, d, NULL);
+    mpz_t p, v, d, n;
+    mpz_inits(p, v, d, n, NULL);
 
     mpz_set_ui(v, 1);
     mpz_set(p, base);
     mpz_set(d, exponent);
+    mpz_set(n, modulus);
 
     /* power modulo algorithm */
     while ((mpz_cmp_ui(d, 0)) > 0) {
         if ((mpz_odd_p(d)) != 0) {
             mpz_mul(v, v, p);
-            mpz_mod(v, v, modulus);
+            mpz_mod(v, v, n);
         }
         mpz_mul(p, p, p);
-        mpz_mod(p, p, modulus);
+        mpz_mod(p, p, n);
 
         mpz_fdiv_q_ui(d, d, 2);
     }
