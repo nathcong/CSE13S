@@ -105,8 +105,8 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
 }
 
 bool is_prime(mpz_t n, uint64_t iters) {
-    mpz_t a, r, s, y, tempn, modn, j, temps, two;
-    mpz_inits(a, r, s, y, tempn, modn, j, temps, two, NULL);
+    mpz_t a, r, s, y, tempn, modn, j, temps, two, random;
+    mpz_inits(a, r, s, y, tempn, modn, j, temps, two, random, NULL);
     mpz_set_ui(two, 2);
 
     /* special cases */
@@ -153,9 +153,9 @@ bool is_prime(mpz_t n, uint64_t iters) {
     mpz_sub_ui(temps, s, 1);
 
     for (uint64_t i = 1; i <= iters; i++) {
-        while ((mpz_cmp_ui(a, 1)) <= 0) {
-            mpz_urandomm(a, state, tempn);
-	}
+	mpz_sub_ui(random, n, 3);
+        mpz_urandomm(a, state, random);
+	mpz_add(a, a, 2);
 
         pow_mod(y, a, r, n);
         if (((mpz_cmp_ui(y, 1)) != 0) && ((mpz_cmp(y, tempn)) != 0)) {
