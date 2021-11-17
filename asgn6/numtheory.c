@@ -142,7 +142,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     /* miller rabin test */
     mpz_sub_ui(tempn, n, 1);
 
-    mpz_sub_ui(r, n, 1);
+    mpz_set(r, tempn);
     while ((mpz_odd_p(r)) == 0) {
         mpz_fdiv_q_ui(r, r, 2);
         mpz_add_ui(s, s, 1);
@@ -151,7 +151,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     for (uint64_t i = 1; i < iters; i++) {
         while ((mpz_cmp_ui(a, 1)) <= 0) {
             mpz_urandomm(a, state, tempn);
-        }
+	}
 
         pow_mod(y, a, r, n);
         if ((mpz_cmp_ui(y, 1)) != 0 && (mpz_cmp(y, tempn)) != 0) {
