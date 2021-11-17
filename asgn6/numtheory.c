@@ -74,7 +74,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
 	mpz_t p, v, originalexponent;
-	mpz_inits(p, v, originalexponent);
+	mpz_inits(p, v, originalexponent, NULL);
 
 	mpz_set_ui(v, 1);
 	mpz_set(p, base);
@@ -99,7 +99,7 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
 	mpz_set(exponent, originalexponent);
 
 	/* free memory of temporary variables */
-	mpz_clears(p, v, originalexponent);
+	mpz_clears(p, v, originalexponent, NULL);
 }
 
 bool is_prime(mpz_t n, uint64_t iters) {
@@ -111,34 +111,40 @@ bool is_prime(mpz_t n, uint64_t iters) {
 
 	/* n is 3 */
 	if ((mpz_cmp_ui(n, 3)) == 0) {
+		mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 		return true;
 	}
 
 	/* n is 2 */
 	if ((mpz_cmp_ui(n, 2)) == 0) {
+		mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 		return true;
 	}
 
 	/* n is 1 */
 	if ((mpz_cmp_ui(n, 1)) == 0) {
+		mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 		return false;
 	}
 
 	/* if number is even */
-	mpz_set(modn, n);
-	mpz_mod_ui(modn, modn, 2);
-	if ((mpz_cmp_ui(modn, 0)) == 0) {
-		return false;	
+	if ((mpz_even_p(n)) != 0) {
+		mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+		return false;
 	}
 
 	/* miller rabin test */
 	mpz_sub_ui(tempn, n, 1);
 	
-	/* need to do */	
+	mpz_sub_ui(r, n, 1);
+	while ((mpz_odd_p(r)) == 0) {
+		mpz_fdiv_q_ui(r, r, 2);
+		mpz_add_ui(s, s, 1);
+	}
 
 	for (uint64_t i = 1; i < iters; i++) {
 		while ((mpz_cmp_ui(a, 1)) <= 0) {
-			mpz_urandomm(a, state, (n - 1));
+			mpz_urandomm(a, state, tempn);
 		}
 
 		pow_mod(y, a, r, n);
@@ -149,25 +155,34 @@ bool is_prime(mpz_t n, uint64_t iters) {
 			while ((mpz_cmp(j, temps)) <= 0 && (mpz_cmp(y, tempn)) != 0) {
 				pow_mod(y, y, consttwo, n);
 				if ((mpz_cmp_ui(y, 1)) == 0) {
+					mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 					return false;
 				}
 				mpz_add_ui(j, j, 1);
 			}
 			if ((mpz_cmp(y, tempn)) != 0) {
+				mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 				return false;
 			}
 		}
 	}
-	/* free memory of temporary variables */
-	mpz_clears(a, r, s, y, tempn, j, temps, consttwo, NULL);
+	/* free memory of temporary variables and RNG */
+	mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
 
-	/* returh true, number is prime */
+	/* return true, number is prime */
 	return true;
 }
 
 void make_prime(mpz_t p, uint64_t bits, uint64_t iters) {
-	for (uint64_t i = 1; i < iters; i++) {
-		;
+	mpz_t bitnum;
+	mpz_init(bitnum);
+
+	/* maximum value */
+	mpz_ui_pow_ui(bitnum, 2, bits); 
+
+	/* prime test */
+	while (is_prime(p, iters) == false) {
+		mpz_urandomm(p, state, bitnum);
 	}
 }
 
