@@ -79,33 +79,28 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 }
 
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
-    mpz_t p, v, originalexponent;
-    mpz_inits(p, v, originalexponent, NULL);
+    mpz_t p, v, d;
+    mpz_inits(p, v, d, NULL);
 
     mpz_set_ui(v, 1);
     mpz_set(p, base);
-
-    /* store original exponent value */
-    mpz_set(originalexponent, exponent);
+    mpz_set(d, exponent);
 
     /* power modulo algorithm */
-    while ((mpz_cmp_ui(exponent, 0)) > 0) {
-        if ((mpz_odd_p(exponent)) != 0) {
+    while ((mpz_cmp_ui(d, 0)) > 0) {
+        if ((mpz_odd_p(d)) != 0) {
             mpz_mul(v, v, p);
             mpz_mod(v, v, modulus);
         }
         mpz_mul(p, p, p);
         mpz_mod(p, p, modulus);
 
-        mpz_fdiv_q_ui(exponent, exponent, 2);
+        mpz_fdiv_q_ui(d, d, 2);
     }
     mpz_set(out, v);
 
-    /* set exponent back to original value */
-    mpz_set(exponent, originalexponent);
-
     /* free memory of temporary variables */
-    mpz_clears(p, v, originalexponent, NULL);
+    mpz_clears(p, v, d, NULL);
 }
 
 bool is_prime(mpz_t n, uint64_t iters) {
@@ -143,7 +138,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     mpz_sub_ui(tempn, n, 1);
 
     mpz_set(r, tempn);
-    while ((mpz_odd_p(r)) == 0) {
+    while ((mpz_even_p(r)) != 0) {
         mpz_fdiv_q_ui(r, r, 2);
         mpz_add_ui(s, s, 1);
     }
