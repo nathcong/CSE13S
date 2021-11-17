@@ -60,12 +60,19 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     }
     if ((mpz_cmp_ui(t, 0)) < 0) {
         mpz_add(t, t, n);
+	mpz_set(i, t);
+	mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
+	return;
     }
 
     /* no inverse */
     if ((mpz_cmp_ui(r, 1)) > 0) {
         mpz_set(i, 0);
+	mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
+	return;
     }
+
+    mpz_set(i, t);
 
     /* free memory of temporary variables */
     mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
