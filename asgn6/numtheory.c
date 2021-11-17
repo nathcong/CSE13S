@@ -105,39 +105,39 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
 }
 
 bool is_prime(mpz_t n, uint64_t iters) {
-    mpz_t a, r, s, y, tempn, modn, j, temps, consttwo;
-    mpz_inits(a, r, s, y, tempn, modn, j, temps, consttwo, NULL);
-    mpz_set_ui(consttwo, 2);
+    mpz_t a, r, s, y, tempn, modn, j, temps, two;
+    mpz_inits(a, r, s, y, tempn, modn, j, temps, two, NULL);
+    mpz_set_ui(two, 2);
 
     /* special cases */
 
     /* n is 3 */
     if ((mpz_cmp_ui(n, 3)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
         return true;
     }
 
     /* n is 2 */
     if ((mpz_cmp_ui(n, 2)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
         return true;
     }
 
     /* n is 1 */
     if ((mpz_cmp_ui(n, 1)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
         return false;
     }
 
     /* n is 0 */
     if ((mpz_cmp_ui(n, 0)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
         return false;
     }
 
     /* if number is even */
     if ((mpz_even_p(n)) != 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
         return false;
     }
 
@@ -162,21 +162,21 @@ bool is_prime(mpz_t n, uint64_t iters) {
             mpz_set_ui(j, 1);
 
             while (((mpz_cmp(j, temps)) <= 0) && ((mpz_cmp(y, tempn)) != 0)) {
-                pow_mod(y, y, consttwo, n);
+                pow_mod(y, y, two, n);
                 if ((mpz_cmp_ui(y, 1)) == 0) {
-                    mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+                    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
                     return false;
                 }
                 mpz_add_ui(j, j, 1);
             }
             if ((mpz_cmp(y, tempn)) != 0) {
-                mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+                mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
                 return false;
             }
         }
     }
     /* free memory of temporary variables and RNG */
-    mpz_clears(a, r, s, y, tempn, j, temps, consttwo, modn, NULL);
+    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
 
     /* return true, number is prime */
     return true;
