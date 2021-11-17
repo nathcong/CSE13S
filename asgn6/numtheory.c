@@ -101,7 +101,7 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
     mpz_set(out, v);
 
     /* free memory of temporary variables */
-    mpz_clears(p, v, d, NULL);
+    mpz_clears(p, v, d, n, NULL);
 }
 
 bool is_prime(mpz_t n, uint64_t iters) {
