@@ -138,9 +138,11 @@ bool is_prime(mpz_t n, uint64_t iters) {
     mpz_sub_ui(tempn, n, 1);
 
     mpz_set(r, tempn);
-    while ((mpz_even_p(r)) != 0) {
-        mpz_fdiv_q_ui(r, r, 2);
-        mpz_add_ui(s, s, 1);
+    if ((mpz_even_p(r)) != 0) {
+        while ((mpz_even_p(r)) != 0) {
+            mpz_fdiv_q_ui(r, r, 2);
+            mpz_add_ui(s, s, 1);
+        }
     }
 
     mpz_sub_ui(temps, s, 1);
