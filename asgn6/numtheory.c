@@ -59,8 +59,10 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
         mpz_sub(tempt, originalt, timest);
     }
 
+    mpz_set(i, t);
+
     /* no inverse */
-    if ((mpz_cmp_ui(r, 1)) < 0) {
+    if ((mpz_cmp_ui(r, 1)) > 0) {
         mpz_set(i, 0);
     }
 
