@@ -67,7 +67,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
 
     /* no inverse */
     if ((mpz_cmp_ui(r, 1)) > 0) {
-        mpz_set(i, 0);
+        mpz_set_ui(i, 0);
 	mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
 	return;
     }
