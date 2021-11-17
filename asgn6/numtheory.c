@@ -113,31 +113,31 @@ bool is_prime(mpz_t n, uint64_t iters) {
 
     /* n is 3 */
     if ((mpz_cmp_ui(n, 3)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
         return true;
     }
 
     /* n is 2 */
     if ((mpz_cmp_ui(n, 2)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
         return true;
     }
 
     /* n is 1 */
     if ((mpz_cmp_ui(n, 1)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
         return false;
     }
 
     /* n is 0 */
     if ((mpz_cmp_ui(n, 0)) == 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
         return false;
     }
 
     /* if number is even */
     if ((mpz_even_p(n)) != 0) {
-        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+        mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
         return false;
     }
 
@@ -164,19 +164,19 @@ bool is_prime(mpz_t n, uint64_t iters) {
             while (((mpz_cmp(j, temps)) <= 0) && ((mpz_cmp(y, tempn)) != 0)) {
                 pow_mod(y, y, two, n);
                 if ((mpz_cmp_ui(y, 1)) == 0) {
-                    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+                    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
                     return false;
                 }
                 mpz_add_ui(j, j, 1);
             }
             if ((mpz_cmp(y, tempn)) != 0) {
-                mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+                mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
                 return false;
             }
         }
     }
     /* free memory of temporary variables and RNG */
-    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, NULL);
+    mpz_clears(a, r, s, y, tempn, j, temps, two, modn, random, NULL);
 
     /* return true, number is prime */
     return true;
