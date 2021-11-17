@@ -152,7 +152,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
 
     mpz_sub_ui(temps, s, 1);
 
-    for (uint64_t i = 1; i < iters; i++) {
+    for (uint64_t i = 1; i <= iters; i++) {
         while ((mpz_cmp_ui(a, 1)) <= 0) {
             mpz_urandomm(a, state, tempn);
 	}
