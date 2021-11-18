@@ -29,7 +29,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 
     /* make prime numbers */
     make_prime(p, pbits64, iters);
-    make_prime(q, qbits64, iters);
+    make_prime(q, nbits, iters);
 
     /* n = pq */
     mpz_mul(n, p, q);
