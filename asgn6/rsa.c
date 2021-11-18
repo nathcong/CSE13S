@@ -8,17 +8,21 @@
 #include <gmp.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
-    	mpz_t pbits, qbits, pmultiply, qmultiply, random;
-	mpz_inits(pbits, qbits, random, pmultiply, qmultiply, NULL);
+    	mpz_t pbits, qbits, pmultiply, qmultiply, random, bits;
+	mpz_inits(pbits, qbits, random, pmultiply, qmultiply, bits, NULL);
+
+	mpz_set_ui(bits, nbits);
 
 	/* calculate numbers needed for bits that go to p and q */
-	mpz_mul_ui(random, 2, nbits);
+	mpz_mul_ui(random, bits, 2);
 
-	urandomm(pbits, state, random);
-	mpz_add(pbits, pbits, nbits);
+	mpz_urandomm(pbits, state, random);
+	mpz_add(pbits, pbits, bits);
 	mpz_fdiv_q_ui(pbits, pbits, 4);
 
-    	mpz_sub(qbits, nbits, pbits);
+    	mpz_sub(qbits, bits, pbits);
+
+	/* need to turn pbits and qbits into uint64_t */
 
 	/* make prime numbers */
 	make_prime(p, pbits, iters);
