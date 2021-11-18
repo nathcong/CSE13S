@@ -60,16 +60,16 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     }
     if ((mpz_cmp_ui(t, 0)) < 0) {
         mpz_add(t, t, n);
-	mpz_set(i, t);
-	mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
-	return;
+        mpz_set(i, t);
+        mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
+        return;
     }
 
     /* no inverse */
     if ((mpz_cmp_ui(r, 1)) > 0) {
         mpz_set_ui(i, 0);
-	mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
-	return;
+        mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
+        return;
     }
 
     mpz_set(i, t);
@@ -153,9 +153,9 @@ bool is_prime(mpz_t n, uint64_t iters) {
     mpz_sub_ui(temps, s, 1);
 
     for (uint64_t i = 1; i <= iters; i++) {
-	mpz_sub_ui(random, n, 3);
+        mpz_sub_ui(random, n, 3);
         mpz_urandomm(a, state, random);
-	mpz_add_ui(a, a, 2);
+        mpz_add_ui(a, a, 2);
 
         pow_mod(y, a, r, n);
         if (((mpz_cmp_ui(y, 1)) != 0) && ((mpz_cmp(y, tempn)) != 0)) {
