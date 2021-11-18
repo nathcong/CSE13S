@@ -27,6 +27,9 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     mpz_export(&pbits64, 0, -1, sizeof pbits64, 0, 0, pbits);
     mpz_export(&qbits64, 0, -1, sizeof qbits64, 0, 0, qbits);
 
+    pbits64 += 1;
+    qbits64 += 1;
+
     /* make prime numbers */
     make_prime(p, pbits64, iters);
     make_prime(q, qbits64, iters);
