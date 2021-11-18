@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <gmp.h>
+#include <stdlib.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
     mpz_t pmultiply, qmultiply, random, totient, g;
@@ -14,8 +15,8 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    pbits = random() % ((2 * nbits) / 4);
-    pbits = pbits + (nbits / 4)
+    pbits = rand() % ((2 * nbits) / 4);
+    pbits = pbits + (nbits / 4);
 
     qbits = nbits - pbits;
 
@@ -41,7 +42,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     }
 
     /* clear mpz variables */
-    mpz_clears(pbits, qbits, random, pmultiply, qmultiply, bits, totient, g, NULL);
+    mpz_clears(random, pmultiply, qmultiply, totient, g, NULL);
 }
 
 void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
