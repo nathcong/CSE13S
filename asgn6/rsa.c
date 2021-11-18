@@ -8,33 +8,45 @@
 #include <gmp.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
-    	mpz_t pbits, qbits, pmultiply, qmultiply, random, bits;
-	mpz_inits(pbits, qbits, random, pmultiply, qmultiply, bits, NULL);
+    mpz_t pbits, qbits, pmultiply, qmultiply, random, bits, totient, g;
+    mpz_inits(pbits, qbits, random, pmultiply, qmultiply, bits, totient, g, NULL);
 
-	mpz_set_ui(bits, nbits);
+    mpz_set_ui(bits, nbits);
 
-	/* calculate numbers needed for bits that go to p and q */
-	mpz_mul_ui(random, bits, 2);
+    /* calculate numbers needed for bits that go to p and q */
+    mpz_mul_ui(random, bits, 2);
 
-	mpz_urandomm(pbits, state, random);
-	mpz_add(pbits, pbits, bits);
-	mpz_fdiv_q_ui(pbits, pbits, 4);
+    mpz_urandomm(pbits, state, random);
+    mpz_add(pbits, pbits, bits);
+    mpz_fdiv_q_ui(pbits, pbits, 4);
 
-    	mpz_sub(qbits, bits, pbits);
+    mpz_sub(qbits, bits, pbits);
 
-	/* need to turn pbits and qbits into uint64_t */
+    /* need to turn pbits and qbits into uint64_t */
+    uint64_t pbits64, qbits64;
+    mpz_export(&pbits64, 0, -1, sizeof pbits64, 0, 0, pbits);
+    mpz_export(&qbits64, 0, -1, sizeof qbits64, 0, 0, qbits);
 
-	/* make prime numbers */
-	make_prime(p, pbits, iters);
-    	make_prime(q, qbits, iters);
+    /* make prime numbers */
+    make_prime(p, pbits64, iters);
+    make_prime(q, qbits64, iters);
 
-	/* n = (p - 1)(q - 1) */
-	mpz_sub_ui(pmultiply, p, 1);
-	mpz_sub_ui(qmultiply, q, 1);
-	mpz_mul(n, pmultiply, qmultiply);
+    /* n = pq */
+    mpz_mul(n, p, q);
 
-	/* find usable e value */
+    /* totient  = (p - 1)(q - 1) */
+    mpz_sub_ui(pmultiply, p, 1);
+    mpz_sub_ui(qmultiply, q, 1);
+    mpz_mul(totient, pmultiply, qmultiply);
 
+    /* find usable e value */
+    while ((mpz_cmp_ui(g, 1)) != 0) {
+        mpz_urandomb(e, state, nbits);
+        gcd(g, e, totient);
+    }
+
+    /* clear mpz variables */
+    mpz_clears(pbits, qbits, random, pmultiply, qmultiply, bits, totient, g, NULL);
 }
 
 void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
