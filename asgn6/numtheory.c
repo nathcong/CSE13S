@@ -31,6 +31,7 @@ void gcd(mpz_t d, mpz_t a, mpz_t b) {
     mpz_clears(originala, originalb, temp, NULL);
 }
 
+/* computes inverse of a mod n and stores it in i */
 void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_t r, tempr, t, tempt, q, originalr, originalt, timesr, timest;
     mpz_inits(r, tempr, t, tempt, q, originalr, originalt, timesr, timest, NULL);
@@ -65,7 +66,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
         return;
     }
 
-    /* no inverse */
+    /* no inverse, sets i to 0 */
     if ((mpz_cmp_ui(r, 1)) > 0) {
         mpz_set_ui(i, 0);
         mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
@@ -78,6 +79,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
 }
 
+/* computes modulus exponentation, where base^exponent mod modulus and stores output in out */
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
     mpz_t p, v, d, n;
     mpz_inits(p, v, d, n, NULL);
@@ -104,6 +106,7 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus) {
     mpz_clears(p, v, d, n, NULL);
 }
 
+/* prime tester using the miller-rabin algorithm */
 bool is_prime(mpz_t n, uint64_t iters) {
     mpz_t a, r, s, y, tempn, modn, j, temps, two, random;
     mpz_inits(a, r, s, y, tempn, modn, j, temps, two, random, NULL);
@@ -182,6 +185,7 @@ bool is_prime(mpz_t n, uint64_t iters) {
     return true;
 }
 
+/* generates a prime number that is bits bits long and stores it in p */
 void make_prime(mpz_t p, uint64_t bits, uint64_t iters) {
     mpz_t bitnum;
     mpz_init(bitnum);
