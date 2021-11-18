@@ -8,31 +8,23 @@
 #include <gmp.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
-    mpz_t pbits, qbits, pmultiply, qmultiply, random, bits, totient, g;
-    mpz_inits(pbits, qbits, random, pmultiply, qmultiply, bits, totient, g, NULL);
+    mpz_t pmultiply, qmultiply, random, totient, g;
+    mpz_inits(random, pmultiply, qmultiply, totient, g, NULL);
 
-    mpz_set_ui(bits, nbits);
+    uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    mpz_mul_ui(random, bits, 2);
+    pbits = random() % ((2 * nbits) / 4);
+    pbits = pbits + (nbits / 4)
 
-    mpz_urandomm(pbits, state, random);
-    mpz_add(pbits, pbits, bits);
-    mpz_fdiv_q_ui(pbits, pbits, 4);
+    qbits = nbits - pbits;
 
-    mpz_sub(qbits, bits, pbits);
-
-    /* need to turn pbits and qbits into uint64_t */
-    uint64_t pbits64, qbits64;
-    mpz_export(&pbits64, 0, -1, sizeof pbits64, 0, 0, pbits);
-    mpz_export(&qbits64, 0, -1, sizeof qbits64, 0, 0, qbits);
-
-    pbits64 += 1;
-    qbits64 += 1;
+    pbits += 1;
+    qbits += 1;
 
     /* make prime numbers */
-    make_prime(p, pbits64, iters);
-    make_prime(q, qbits64, iters);
+    make_prime(p, pbits, iters);
+    make_prime(q, qbits, iters);
 
     /* n = pq */
     mpz_mul(n, p, q);
