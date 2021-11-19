@@ -47,7 +47,7 @@ void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
     gmp_fprintf(pbfile, "%Zx\n", n);
     gmp_fprintf(pbfile, "%Zx\n", e);
     gmp_fprintf(pbfile, "%Zx\n", s);
-    gmp_fprintf(pbfile, "%hh\n", username);
+    gmp_fprintf(pbfile, "%s\n", username);
 }
 
 /* reads public key from pbfile */
@@ -55,7 +55,7 @@ void rsa_read_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
     gmp_fscanf(pbfile, "%Zx\n", n);
     gmp_fscanf(pbfile, "%Zx\n", e);
     gmp_fscanf(pbfile, "%Zx\n", s);
-    gmp_fscanf(pbfile, "%hh\n", username);
+    gmp_fscanf(pbfile, "%s\n", username);
 }
 
 /* makes private RSA key */
