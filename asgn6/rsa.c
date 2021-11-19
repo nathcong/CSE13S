@@ -15,7 +15,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    pbits = rand() % (((2 * nbits) / 4) + 1);
+    pbits = rand() % ((2 * nbits) / 4);
     pbits = pbits + (nbits / 4);
 
     qbits = nbits - pbits;
@@ -63,12 +63,15 @@ void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q) {
     mpz_t ptemp, qtemp, totient;
     mpz_inits(ptemp, qtemp, totient, NULL);
 
+    /* compute totient = (p - 1)(q - 1) */
     mpz_sub_ui(ptemp, p, 1);
     mpz_sub_ui(qtemp, q, 1);
     mpz_mul(totient, ptemp, qtemp);
 
+    /* e mod totient */
     mod_inverse(d, e, totient);
 
+    /* clear mpz variables */
     mpz_clears(ptemp, qtemp, totient, NULL);
 }
 
@@ -100,8 +103,9 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     ;
 }
 
+/* create signature with private key and public mod */
 void rsa_sign(mpz_t s, mpz_t m, mpz_t d, mpz_t n) {
-    ;
+    pow_mod(s, m, d, n);
 }
 
 bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n) {
