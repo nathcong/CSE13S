@@ -64,11 +64,13 @@ void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q) {
 }
 
 void rsa_write_priv(mpz_t n, mpz_t d, FILE *pvfile) {
-    ;
+    gmp_fprintf(pbfile, "%Zx\n", n);
+    gmp_fprintf(pbfile, "%Zx\n", d);
 }
 
 void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile) {
-    ;
+    gmp_fscanf(pbfile, "%Zx\n", n);
+    gmp_fscanf(pbfile, "%Zx\n", d);
 }
 
 void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
