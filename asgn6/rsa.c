@@ -64,7 +64,7 @@ void rsa_read_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile) {
 /* makes private RSA key */
 void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q) {
     mpz_t ptemp, qtemp, totient;
-    mpz_init(ptemp, qtemp, totient, NULL);
+    mpz_inits(ptemp, qtemp, totient, NULL);
 
     mpz_sub_ui(ptemp, p, 1);
     mpz_sub_ui(qtemp, q, 1);
