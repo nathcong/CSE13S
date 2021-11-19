@@ -111,7 +111,7 @@ void rsa_sign(mpz_t s, mpz_t m, mpz_t d, mpz_t n) {
 /* verifies signature */
 bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n) {
     mpz_t t;
-    mpz_t_inits(t, NULL);
+    mpz_inits(t, NULL);
 
     pow_mod(t, s, e, n);
 
