@@ -35,7 +35,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     /* find usable e value */
     while ((mpz_cmp_ui(g, 1)) != 0) {
         mpz_urandomb(e, state, nbits);
-        gcd(g, e, n);
+        gcd(g, e, totient);
     }
 
     /* clear mpz variables */
