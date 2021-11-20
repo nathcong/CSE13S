@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <gmp.h>
 #include <stdlib.h>
-#include <math.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
     mpz_t pmultiply, qmultiply, random, totient, g;
@@ -16,11 +15,11 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    pbits = rand() % (2 * nbits);
+    pbits = rand() % ((2 * nbits) / 4);
     pbits = pbits + nbits;
-    pbits = floor(pbits / 4);
+    pbits = (pbits / 4);
 
-    qbits = nbits - pbits;
+    qbits = nbits - pbits + 1;
 
     /* make prime numbers */
     make_prime(p, pbits, iters);
