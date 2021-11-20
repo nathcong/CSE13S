@@ -16,8 +16,10 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 
     /* calculate numbers needed for bits that go to p and q */
     pbits = rand() % ((2 * nbits) / 4) + (nbits / 4);
-
     qbits = nbits - pbits;
+
+    pbits += 1;
+    qbits += 1;
 
     /* make prime numbers */
     make_prime(p, pbits, iters);
