@@ -88,7 +88,7 @@ void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile) {
 }
 
 void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
-    ;
+    pow_mod(c, m, e, n);
 }
 
 void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
@@ -96,7 +96,7 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
 }
 
 void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
-    ;
+    pow_mod(m, c, d, n);
 }
 
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
@@ -117,9 +117,8 @@ bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n) {
 
     /* returns true in t == m */
     if ((mpz_cmp(t, m)) == 0) {
-	return true;
-    }
-    else {
-	return false;
+        return true;
+    } else {
+        return false;
     }
 }
