@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <gmp.h>
 #include <stdlib.h>
+#include <math.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
     mpz_t pmultiply, qmultiply, random, totient, g;
@@ -15,8 +16,9 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    pbits = rand() % ((2 * nbits) / 4);
-    pbits = pbits + (nbits / 4);
+    pbits = rand() % (2 * nbits);
+    pbits = pbits + nbits;
+    pbits = floor(pbits / 4);
 
     qbits = nbits - pbits;
 
@@ -25,17 +27,17 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     make_prime(q, qbits, iters);
 
     /* n = pq */
-    mpz_mul(totient, p, q);
+    mpz_mul(n, p, q);
 
     /* totient  = (p - 1)(q - 1) */
     mpz_sub_ui(pmultiply, p, 1);
     mpz_sub_ui(qmultiply, q, 1);
-    mpz_mul(n, pmultiply, qmultiply);
+    mpz_mul(totient, pmultiply, qmultiply);
 
     /* find usable e value */
     while ((mpz_cmp_ui(g, 1)) != 0) {
         mpz_urandomb(e, state, nbits);
-        gcd(g, e, n);
+        gcd(g, e, totient);
     }
 
     /* clear mpz variables */
