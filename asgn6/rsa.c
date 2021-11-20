@@ -15,7 +15,7 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
     uint64_t pbits, qbits;
 
     /* calculate numbers needed for bits that go to p and q */
-    pbits = rand() % ((2 * nbits) / 4) + (nbits / 4);
+    pbits = rand() % (((2 * nbits) / 4) + 1) + (nbits / 4) ;
     qbits = nbits - pbits;
 
     pbits += 1;
