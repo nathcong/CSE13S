@@ -19,9 +19,6 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 
     qbits = nbits - pbits;
 
-    pbits += 1;
-    qbits += 1;
-
     /* make prime numbers */
     make_prime(p, pbits, iters);
     make_prime(q, qbits, iters);
