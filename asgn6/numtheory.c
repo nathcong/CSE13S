@@ -190,11 +190,8 @@ void make_prime(mpz_t p, uint64_t bits, uint64_t iters) {
     mpz_t bitnum;
     mpz_init(bitnum);
 
-    /* maximum value */
-    mpz_ui_pow_ui(bitnum, 2, bits);
-
     /* prime test */
     while (is_prime(p, iters) == false) {
-        mpz_urandomm(p, state, bitnum);
+        mpz_urandomb(p, state, bits);
     }
 }
