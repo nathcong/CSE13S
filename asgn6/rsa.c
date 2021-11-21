@@ -105,19 +105,19 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_fdiv_q_ui(block, block, 8);
 
     uint64_t blockint = mpz_get_ui(block);
-    
+
     /* block awway memory allocation and set 0th element to 0xFF*/
     uint8_t *buf = (uint8_t *) calloc(blockint, sizeof(uint8_t));
     buf[0] = 0xFF;
-    
+
     /* read bytes and encrypt until all bytes are read */
     int reading = 0;
     while ((reading = fread(&buf[1], sizeof(uint8_t), blockint - 1, infile)) > 0) {
-	for (uint64_t i = 1; i < blockint - 1; i++) {
-	    fprintf(stderr, "%c", buf[i]);
-	}
-	fprintf(stderr, "\n");
-	mpz_import(message, reading + 1, 1, sizeof(uint8_t), 1, 0, buf);
+        for (uint64_t i = 1; i < blockint - 1; i++) {
+            fprintf(stderr, "%c", buf[i]);
+        }
+        fprintf(stderr, "\n");
+        mpz_import(message, reading + 1, 1, sizeof(uint8_t), 1, 0, buf);
         rsa_encrypt(ciphertext, message, e, n);
         gmp_fprintf(outfile, "%Zx\n", ciphertext);
     }
@@ -150,10 +150,10 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     buf[0] = 0xFF;
 
     /* read bytes and decrypt until all bytes are read */
-    uint64_t reading = 0;
-    while ((reading = gmp_fscanf(infile, "%Zx\n", ciphertext)) > 0) {
+    uint64_t reading = 1;
+    while ((reading = gmp_fscanf(infile, "%Zx\n", ciphertext)) == 1) {
         rsa_decrypt(message, ciphertext, d, n);
-	mpz_export(buf, &reading, 1, sizeof(char), 1, 0, message);
+        mpz_export(buf, &reading, 1, sizeof(char), 1, 0, message);
         fwrite(&buf[1], sizeof(uint8_t), reading - 1, outfile);
     }
 

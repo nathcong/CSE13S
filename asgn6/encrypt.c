@@ -32,31 +32,31 @@ int main(int argc, char **argv) {
             verbose = true;
             break;
         }
-	case 'i': {
-	    infile = fopen(optarg, "r");
+        case 'i': {
+            infile = fopen(optarg, "r");
             if (infile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             break;
-	}
-	case 'o': {
-	    outfile = fopen(optarg, "w");
+        }
+        case 'o': {
+            outfile = fopen(optarg, "w");
             if (outfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             break;
-	}
-	case 'n': {
-	    pbfile = fopen(optarg, "r");
+        }
+        case 'n': {
+            pbfile = fopen(optarg, "r");
             if (pbfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             pub = true;
             break;
-	}
+        }
         default: {
             help = true;
             break;
@@ -67,7 +67,8 @@ int main(int argc, char **argv) {
     /* help message */
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
-        fprintf(stderr, "  Encrypts data using RSA encryption, decryption done by decrypt program.\n");
+        fprintf(
+            stderr, "  Encrypts data using RSA encryption, decryption done by decrypt program.\n");
         fprintf(stderr, "USAGE\n");
         fprintf(stderr, "  ./encrypt [-hvi:o:n:] [-i infile] [-o outfile] [-n pbfile]\n\n");
         fprintf(stderr, "OPTIONS\n");
@@ -84,7 +85,7 @@ int main(int argc, char **argv) {
         pbfile = fopen("rsa.pub", "r");
         if (pbfile == NULL) {
             fprintf(stderr, "Error: File could not be opened.\n");
-	    fclose(pbfile);
+            fclose(pbfile);
             fclose(infile);
             fclose(outfile);
             return -1;
@@ -99,22 +100,23 @@ int main(int argc, char **argv) {
 
     /* verbose output if enabled */
     if (verbose == true) {
-	gmp_fprintf(stderr, "user = %s\n", username);
-	gmp_fprintf(stderr, "signature (%d bits) = %Zu\n", mpz_sizeinbase(signature, 2) - 1, signature);
-	gmp_fprintf(stderr, "public modulus (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, modn);
+        gmp_fprintf(stderr, "user = %s\n", username);
+        gmp_fprintf(
+            stderr, "signature (%d bits) = %Zu\n", mpz_sizeinbase(signature, 2) - 1, signature);
+        gmp_fprintf(stderr, "public modulus (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, modn);
         gmp_fprintf(stderr, "public exponent (%d bits) = %Zu\n", mpz_sizeinbase(pube, 2) - 1, pube);
     }
 
     /* convert username to mpz_t and verify */
     mpz_set_str(userstr, username, 62);
-    
+
     if (rsa_verify(userstr, signature, pube, modn) == false) {
-	fprintf(stderr, "Error: Signature could not be verified.");
+        fprintf(stderr, "Error: Signature could not be verified.");
         fclose(pbfile);
         fclose(infile);
         fclose(outfile);
-	mpz_clears(modn, pube, signature, userstr, NULL);
-	return -1;
+        mpz_clears(modn, pube, signature, userstr, NULL);
+        return -1;
     }
 
     /* encrypt file */
