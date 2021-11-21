@@ -174,9 +174,9 @@ bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n) {
     /* returns true in t == m */
     if ((mpz_cmp(t, m)) == 0) {
         mpz_clears(t, NULL);
-	return true;
+        return true;
     } else {
-	mpz_clears(t, NULL);
+        mpz_clears(t, NULL);
         return false;
     }
 }
