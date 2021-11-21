@@ -153,12 +153,12 @@ int main(int argc, char **argv) {
     /* verbose output if enabled */
     if (verbose == true) {
         gmp_fprintf(
-            stderr, "signature (%d bits) = %d", mpz_sizeinbase(signature, 2) - 1, signature);
-        gmp_fprintf(stderr, "first prime (%d bits) = %d", mpz_sizeinbase(prime1, 2) - 1, prime1);
-        gmp_fprintf(stderr, "second prime (%d bits) = %d", mpz_sizeinbase(prime2, 2) - 1, prime2);
-        gmp_fprintf(stderr, "public modulus (%d bits) = %d", mpz_sizeinbase(modn, 2) - 1, modn);
-        gmp_fprintf(stderr, "public exponent (%d bits) = %d", mpz_sizeinbase(pube, 2) - 1, pube);
-        gmp_fprintf(stderr, "private key (%d bits) = %d", mpz_sizeinbase(privkey, 2) - 1, privkey);
+            stderr, "signature (%d bits) = %Zu\n", mpz_sizeinbase(signature, 2) - 1, signature);
+        gmp_fprintf(stderr, "first prime (%d bits) = %Zu\n", mpz_sizeinbase(prime1, 2) - 1, prime1);
+        gmp_fprintf(stderr, "second prime (%d bits) = %Zu\n", mpz_sizeinbase(prime2, 2) - 1, prime2);
+        gmp_fprintf(stderr, "public modulus (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, modn);
+        gmp_fprintf(stderr, "public exponent (%d bits) = %Zu\n", mpz_sizeinbase(pube, 2) - 1, pube);
+        gmp_fprintf(stderr, "private key (%d bits) = %Zu\n", mpz_sizeinbase(privkey, 2) - 1, privkey);
     }
 
     /* memory clearing and file closing */

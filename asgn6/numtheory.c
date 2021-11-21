@@ -76,7 +76,7 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n) {
     mpz_set(i, t);
 
     /* free memory of temporary variables */
-    mpz_clears(r, tempr, t, tempt, q, originalr, originalt, NULL);
+    mpz_clears(r, tempr, t, tempt, q, originalr, originalt, timesr, timest, NULL);
 }
 
 /* computes modulus exponentation, where base^exponent mod modulus and stores output in out */
