@@ -104,7 +104,6 @@ int main(int argc, char **argv) {
     }
 
     /* decrypt file */
-    /* CAUSING CORE DUMP */
     rsa_decrypt_file(infile, outfile, modn, privkey);
 
     /* close files and clear mpz variables */

@@ -2,7 +2,7 @@ EXEC = decrypt encrypt keygen numtheory randstate rsa
 SOURCES = $(wildcard *.c)
 OBJECTS = numtheory.o randstate.o rsa.o
 CC = clang
-CFLAGS = -Wall -Wpedantic -Werror -Wextra -O2 $(shell pkg-config --cflags gmp)
+CFLAGS = -Wall -Wpedantic -Werror -Wextra -O2 $(shell pkg-config --cflags gmp) -g
 LDFLAGS = -lm $(shell pkg-config --libs gmp)
 
 all: decrypt encrypt keygen
