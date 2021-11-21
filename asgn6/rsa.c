@@ -8,6 +8,7 @@
 #include <gmp.h>
 #include <stdlib.h>
 
+/* creates public RSA key */
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters) {
     mpz_t pmultiply, qmultiply, random, totient, g;
     mpz_inits(random, pmultiply, qmultiply, totient, g, NULL);
@@ -88,10 +89,12 @@ void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile) {
     gmp_fscanf(pvfile, "%Zx\n", d);
 }
 
+/* encrypt given message into ciphertext */
 void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
     pow_mod(c, m, e, n);
 }
 
+/* encrypt all bytes in a file */
 void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_t nbits, block, ciphertext, message;
     mpz_inits(nbits, block, ciphertext, message, NULL);
@@ -119,10 +122,12 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_clears(nbits, block, ciphertext, message, NULL);
 }
 
+/* decrypt given ciphertext into message */
 void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
     pow_mod(m, c, d, n);
 }
 
+/* decrypt all bytes in a file */
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     mpz_t nbits, block, ciphertext, message;
     mpz_inits(nbits, block, ciphertext, message, NULL);
