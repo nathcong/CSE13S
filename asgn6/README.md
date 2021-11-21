@@ -65,7 +65,7 @@ Generates a pair of RSA public and private keys.
 
 USAGE
   
-./key [-hvb:i:n:d:s:] [-b bits] [-i iterations] [-n pbfile] [-d pvfile] [-s seed]
+./keygen [-hvb:i:n:d:s:] [-b bits] [-i iterations] [-n pbfile] [-d pvfile] [-s seed]
 
 OPTIONS
   
