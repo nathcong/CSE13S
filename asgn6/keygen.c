@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'n': {
-            pbfile = fopen(optarg, "ab+");
+            pbfile = fopen(optarg, "w+");
             if (pbfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
             break;
         }
         case 'd': {
-            pvfile = fopen(optarg, "r");
+            pvfile = fopen(optarg, "w+");
             if (pvfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
 
     /* if files not specified, open default files */
     if (pub == false) {
-        pbfile = fopen("rsa.pub", "ab+");
+        pbfile = fopen("rsa.pub", "w+");
         if (pbfile == NULL) {
             fprintf(stderr, "Error: File could not be opened.\n");
             return -1;
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
     }
 
     if (priv == false) {
-        pvfile = fopen("rsa.priv", "ab+");
+        pvfile = fopen("rsa.priv", "w+");
         if (pbfile == NULL) {
             fprintf(stderr, "Error: File could not be opened.\n");
             return -1;
