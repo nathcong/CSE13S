@@ -8,6 +8,9 @@
 #include <gmp.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+#include <limits.h>
+#include <sys/stat.h>
 #define OPTIONS "hvi:s:b:n:d:"
 
 int main(int argc, char **argv) {
@@ -37,7 +40,7 @@ int main(int argc, char **argv) {
         }
 	case 's': {
 	    uiarg = atoi(optarg);
-	    if (uiarg <= 0 || uiarg > UINTLIMIT) {
+	    if (uiarg <= 0 || uiarg > ULLONG_MAX) {
                 ;
             } else {
                 seed = uiarg;
@@ -46,7 +49,7 @@ int main(int argc, char **argv) {
 	}
 	case 'i': {
 	    uiarg = atoi(optarg);
-            if (uiarg <= 0 || uiarg > UINTLIMIT) {
+            if (uiarg <= 0 || uiarg > ULLONG_MAX) {
                 ;
             } else {
                 iters = uiarg;
@@ -85,14 +88,14 @@ int main(int argc, char **argv) {
             break;
         }
         }
+    }
 
     /* help message */
     if (help == true) {
 	fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr, "  Generates a pair of RSA public and private keys.\n");
         fprintf(stderr, "USAGE\n");
-        fprintf(stderr, "  ./key [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n
-		       	[-n pbfile] [-d pvfile] [-s seed]\n\n");
+        fprintf(stderr, "  ./key [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n  [-n pbfile] [-d pvfile] [-s seed]\n\n");
         fprintf(stderr, "OPTIONS\n");
         fprintf(stderr, "  -v		  Enable verbose printing.\n");
         fprintf(stderr, "  -h		  Program help message.\n");
@@ -113,7 +116,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    if (priv = false) {
+    if (priv == false) {
 	pvfile = fopen("rsa.priv", "ab+");
     	if (pbfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");

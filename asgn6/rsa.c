@@ -142,7 +142,7 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     int reading = 0;
     while (reading > 0) {
         reading = gmp_fscanf(infile, "%Zx\n", ciphertext);
-        mpz_export(message, blockint - 1, 1, blockint - 1, 1, 0, ciphertext); 
+        mpz_export(message, NULL, 1, blockint - 1, 1, 0, ciphertext); 
         rsa_decrypt(message, ciphertext, d, n);
         gmp_fprintf(outfile, "%s\n", message);
     }
