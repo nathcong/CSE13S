@@ -139,10 +139,10 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     buf[0] = 0xFF;
 
     /* read bytes and decrypt until all bytes are read */
-    int reading = 0;
+    uint64_t reading = 0;
     while ((reading = gmp_fscanf(infile, "%Zx\n", ciphertext)) > 0) {
         rsa_decrypt(message, ciphertext, d, n);
-	mpz_export(buf, reading, 1, blockint - 1, 1, 0, message);
+	mpz_export(buf, &reading, 1, blockint - 1, 1, 0, message);
         fwrite(&buf[1], sizeof(uint8_t), blockint - 1, outfile);
     }
 
