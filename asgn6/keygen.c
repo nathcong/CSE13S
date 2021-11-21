@@ -16,7 +16,7 @@
 int main(int argc, char **argv) {
     int opt = 0;
     bool help = false;
-    bool verbose = false; 
+    bool verbose = false;
     uint64_t seed = time(NULL);
     uint64_t uiarg = 0;
     uint64_t iters = 50;
@@ -38,51 +38,51 @@ int main(int argc, char **argv) {
             verbose = true;
             break;
         }
-	case 's': {
-	    uiarg = atoi(optarg);
-	    if (uiarg <= 0 || uiarg > ULLONG_MAX) {
+        case 's': {
+            uiarg = atoi(optarg);
+            if (uiarg <= 0 || uiarg > ULLONG_MAX) {
                 ;
             } else {
                 seed = uiarg;
             }
-	    break;
-	}
-	case 'i': {
-	    uiarg = atoi(optarg);
+            break;
+        }
+        case 'i': {
+            uiarg = atoi(optarg);
             if (uiarg <= 0 || uiarg > ULLONG_MAX) {
                 ;
             } else {
                 iters = uiarg;
             }
             break;
-	}
-	case 'b': {
-	    uiarg = atoi(optarg);
+        }
+        case 'b': {
+            uiarg = atoi(optarg);
             if (uiarg <= 0) {
                 ;
             } else {
                 nbits = uiarg;
             }
             break;
-	}
-	case 'n': {
-	    pbfile = fopen(optarg, "ab+");
+        }
+        case 'n': {
+            pbfile = fopen(optarg, "ab+");
             if (pbfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
-	    pub = true;
-            break;  
-	}
-	case 'd': {
-	    pvfile = fopen(optarg, "r");
+            pub = true;
+            break;
+        }
+        case 'd': {
+            pvfile = fopen(optarg, "r");
             if (pvfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
-	    priv = true;
+            priv = true;
             break;
-	}
+        }
         default: {
             help = true;
             break;
@@ -92,16 +92,18 @@ int main(int argc, char **argv) {
 
     /* help message */
     if (help == true) {
-	fprintf(stderr, "SYNOPSIS\n");
+        fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr, "  Generates a pair of RSA public and private keys.\n");
         fprintf(stderr, "USAGE\n");
-        fprintf(stderr, "  ./key [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n  [-n pbfile] [-d pvfile] [-s seed]\n\n");
+        fprintf(stderr, "  ./key [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n  [-n pbfile] [-d "
+                        "pvfile] [-s seed]\n\n");
         fprintf(stderr, "OPTIONS\n");
         fprintf(stderr, "  -v		  Enable verbose printing.\n");
         fprintf(stderr, "  -h		  Program help message.\n");
-	fprintf(stderr, "  -b bits        Bits needed for public modulus n.\n");
-	fprintf(stderr, "  -i iterations  Iterations to test primes. Default is 50.\n");
-	fprintf(stderr, "  -s seed        Random seed for RNG. Default is time since UNIX epoch.\n");
+        fprintf(stderr, "  -b bits        Bits needed for public modulus n.\n");
+        fprintf(stderr, "  -i iterations  Iterations to test primes. Default is 50.\n");
+        fprintf(
+            stderr, "  -s seed        Random seed for RNG. Default is time since UNIX epoch.\n");
         fprintf(stderr, "  -n pbfile	  Public key file. Default is rsa.pub.\n");
         fprintf(stderr, "  -d pvfile 	  Private key file. Default is rsa.priv.\n");
         exit(0);
@@ -109,18 +111,18 @@ int main(int argc, char **argv) {
 
     /* if files not specified, open default files */
     if (pub == false) {
-	pbfile = fopen("rsa.pub", "ab+");
-	if (pbfile == NULL) {
-                fprintf(stderr, "Error: File could not be opened.\n");
-                return -1;
+        pbfile = fopen("rsa.pub", "ab+");
+        if (pbfile == NULL) {
+            fprintf(stderr, "Error: File could not be opened.\n");
+            return -1;
         }
     }
 
     if (priv == false) {
-	pvfile = fopen("rsa.priv", "ab+");
-    	if (pbfile == NULL) {
-                fprintf(stderr, "Error: File could not be opened.\n");
-                return -1;
+        pvfile = fopen("rsa.priv", "ab+");
+        if (pbfile == NULL) {
+            fprintf(stderr, "Error: File could not be opened.\n");
+            return -1;
         }
     }
 
@@ -150,12 +152,13 @@ int main(int argc, char **argv) {
 
     /* verbose output if enabled */
     if (verbose == true) {
-	gmp_fprintf(stderr, "signature (%d bits) = %d", mpz_sizeinbase(signature, 2) - 1, signature);
-	gmp_fprintf(stderr, "first prime (%d bits) = %d", mpz_sizeinbase(prime1, 2) - 1, prime1);
-	gmp_fprintf(stderr, "second prime (%d bits) = %d", mpz_sizeinbase(prime2, 2) - 1, prime2);
-	gmp_fprintf(stderr, "public modulus (%d bits) = %d", mpz_sizeinbase(modn, 2) - 1, modn);
-	gmp_fprintf(stderr, "public exponent (%d bits) = %d", mpz_sizeinbase(pube, 2) - 1, pube);
-	gmp_fprintf(stderr, "private key (%d bits) = %d", mpz_sizeinbase(privkey, 2) - 1, privkey);
+        gmp_fprintf(
+            stderr, "signature (%d bits) = %d", mpz_sizeinbase(signature, 2) - 1, signature);
+        gmp_fprintf(stderr, "first prime (%d bits) = %d", mpz_sizeinbase(prime1, 2) - 1, prime1);
+        gmp_fprintf(stderr, "second prime (%d bits) = %d", mpz_sizeinbase(prime2, 2) - 1, prime2);
+        gmp_fprintf(stderr, "public modulus (%d bits) = %d", mpz_sizeinbase(modn, 2) - 1, modn);
+        gmp_fprintf(stderr, "public exponent (%d bits) = %d", mpz_sizeinbase(pube, 2) - 1, pube);
+        gmp_fprintf(stderr, "private key (%d bits) = %d", mpz_sizeinbase(privkey, 2) - 1, privkey);
     }
 
     /* memory clearing and file closing */

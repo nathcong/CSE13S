@@ -94,7 +94,7 @@ void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
 void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_t nbits, block, ciphertext, message;
     mpz_inits(nbits, block, ciphertext, message, NULL);
-    
+
     /* get block size */
     mpz_set_ui(block, mpz_sizeinbase(n, 2));
     mpz_sub_ui(block, block, 1);
@@ -108,11 +108,11 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
 
     /* read bytes and encrypt until all bytes are read */
     int reading = 0;
-    while (reading > 0) { 
-	reading = fread(&buf[1], sizeof(uint8_t), blockint - 1, infile);
-	mpz_import(message, blockint - 1, 1, blockint - 1, 1, 0, buf);
-	rsa_encrypt(ciphertext, message, e, n);
-	gmp_fprintf(outfile, "%Zx\n", ciphertext);
+    while (reading > 0) {
+        reading = fread(&buf[1], sizeof(uint8_t), blockint - 1, infile);
+        mpz_import(message, blockint - 1, 1, blockint - 1, 1, 0, buf);
+        rsa_encrypt(ciphertext, message, e, n);
+        gmp_fprintf(outfile, "%Zx\n", ciphertext);
     }
 
     /* clear mpz variables */
@@ -126,7 +126,7 @@ void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     mpz_t nbits, block, ciphertext, message;
     mpz_inits(nbits, block, ciphertext, message, NULL);
-	
+
     /* get block size */
     mpz_set_ui(block, mpz_sizeinbase(n, 2));
     mpz_sub_ui(block, block, 1);
@@ -142,7 +142,7 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     int reading = 0;
     while (reading > 0) {
         reading = gmp_fscanf(infile, "%Zx\n", ciphertext);
-        mpz_export(message, NULL, 1, blockint - 1, 1, 0, ciphertext); 
+        mpz_export(message, NULL, 1, blockint - 1, 1, 0, ciphertext);
         rsa_decrypt(message, ciphertext, d, n);
         gmp_fprintf(outfile, "%s\n", message);
     }

@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     int opt = 0;
     bool help = false;
     bool verbose = false;
-    
+
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
         /* switch statement to add functions to the set for them to be run */
         switch (opt) {
@@ -27,11 +27,10 @@ int main(int argc, char **argv) {
             verbose = true;
             break;
         }
-	default: {
+        default: {
             help = true;
             break;
         }
         }
     }
-
 }
