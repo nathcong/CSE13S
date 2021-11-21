@@ -106,7 +106,7 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     uint8_t *buf = (uint8_t *) calloc(blockint, sizeof(uint8_t));
     buf[0] = 0xFF;
 
-    /* read bytes until all bytes are read */
+    /* read bytes and encrypt until all bytes are read */
     int reading = 0;
     while (reading > 0) { 
 	reading = fread(&buf[1], sizeof(uint8_t), blockint - 1, infile);
@@ -117,7 +117,6 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
 
     /* clear mpz variables */
     mpz_clears(nbits, block, ciphertext, message, NULL);
-
 }
 
 void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
@@ -125,7 +124,31 @@ void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
 }
 
 void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
-    ;
+    mpz_t nbits, block, ciphertext, message;
+    mpz_inits(nbits, block, ciphertext, message, NULL);
+	
+    /* get block size */
+    mpz_set_ui(block, mpz_sizeinbase(n, 2));
+    mpz_sub_ui(block, block, 1);
+    mpz_fdiv_q_ui(block, block, 8);
+
+    uint64_t blockint = mpz_get_ui(block);
+
+    /* block awway memory allocation and set 0th element to 0xFF*/
+    uint8_t *buf = (uint8_t *) calloc(blockint, sizeof(uint8_t));
+    buf[0] = 0xFF;
+
+    /* read bytes and decrypt until all bytes are read */
+    int reading = 0;
+    while (reading > 0) {
+        reading = gmp_fscanf(infile, "%Zx\n", ciphertext);
+        mpz_export(message, blockint - 1, 1, blockint - 1, 1, 0, ciphertext); 
+        rsa_decrypt(message, ciphertext, d, n);
+        gmp_fprintf(outfile, "%s\n", message);
+    }
+
+    /* clear mpz variables */
+    mpz_clears(nbits, block, ciphertext, message, NULL);
 }
 
 /* create signature with private key and public mod */
