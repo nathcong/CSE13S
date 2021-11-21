@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "SYNOPSIS\n");
         fprintf(stderr, "  Generates a pair of RSA public and private keys.\n");
         fprintf(stderr, "USAGE\n");
-        fprintf(stderr, "  ./key [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n  [-n pbfile] [-d "
+        fprintf(stderr, "  ./keygen [-hvb:i:n:d:s:] [-b bits] [-i iterations]\n  [-n pbfile] [-d "
                         "pvfile] [-s seed]\n\n");
         fprintf(stderr, "OPTIONS\n");
         fprintf(stderr, "  -v		  Enable verbose printing.\n");
