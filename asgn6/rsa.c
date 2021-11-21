@@ -101,20 +101,24 @@ void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
 
     /* get block size */
     mpz_set_ui(block, mpz_sizeinbase(n, 2));
-    mpz_sub_ui(block, block, 1);
+    mpz_sub_ui(block, block, 2);
     mpz_fdiv_q_ui(block, block, 8);
 
     uint64_t blockint = mpz_get_ui(block);
-
+    
     /* block awway memory allocation and set 0th element to 0xFF*/
     uint8_t *buf = (uint8_t *) calloc(blockint, sizeof(uint8_t));
     buf[0] = 0xFF;
-
+    
     /* read bytes and encrypt until all bytes are read */
     int reading = 0;
     while ((reading = fread(&buf[1], sizeof(uint8_t), blockint - 1, infile)) > 0) {
-        mpz_import(message, reading, 1, blockint - 1, 1, 0, buf);
-        rsa_encrypt(ciphertext, message, n, e);
+	for (uint64_t i = 1; i < blockint - 1; i++) {
+	    fprintf(stderr, "%c", buf[i]);
+	}
+	fprintf(stderr, "\n");
+	mpz_import(message, reading + 1, 1, sizeof(uint8_t), 1, 0, buf);
+        rsa_encrypt(ciphertext, message, e, n);
         gmp_fprintf(outfile, "%Zx\n", ciphertext);
     }
 
@@ -136,7 +140,7 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
 
     /* get block size */
     mpz_set_ui(block, mpz_sizeinbase(n, 2));
-    mpz_sub_ui(block, block, 1);
+    mpz_sub_ui(block, block, 2);
     mpz_fdiv_q_ui(block, block, 8);
 
     uint64_t blockint = mpz_get_ui(block);
