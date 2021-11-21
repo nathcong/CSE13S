@@ -1,7 +1,10 @@
 # Assignment 6 - Public Key Cryptography - README
 
 ## Program Description
-This program is a library that conducts data encryption and decryption using the RSA algorithm. In addition, the library also contains an RSA public and private key generator that will generate unique RSA keys. 
+This program is a library that conducts data encryption and decryption using the RSA algorithm. In addition, the library also contains an RSA public and private key generator that will generate unique RSA keys. The implementations included in this library include a random number generator, various number theory functions used in the RSA algorithm, and various functions used in or in conjunction with the RSA algorithm.
+
+This library and the implementations within all use the GNU Multiple Precision Arithmetic Library. 
+
 ## Program Compiling
 To compile the complete program, input:
 >*make*
@@ -62,7 +65,7 @@ Generates a pair of RSA public and private keys.
 
 USAGE
   
-./key [-hvb:i:n:d:s:] [-b bits] [-i iterations] [-n pbfile] [-d pvfile] [-s seed]
+./keygen [-hvb:i:n:d:s:] [-b bits] [-i iterations] [-n pbfile] [-d pvfile] [-s seed]
 
 OPTIONS
   
