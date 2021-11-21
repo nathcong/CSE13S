@@ -31,31 +31,31 @@ int main(int argc, char **argv) {
             verbose = true;
             break;
         }
-	case 'i': {
-	    infile = fopen(optarg, "r");
+        case 'i': {
+            infile = fopen(optarg, "r");
             if (infile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             break;
-	}
-	case 'o': {
-	    outfile = fopen(optarg, "w");
+        }
+        case 'o': {
+            outfile = fopen(optarg, "w");
             if (outfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             break;
-	}
-	case 'n': {
-	    pvfile = fopen(optarg, "r");
+        }
+        case 'n': {
+            pvfile = fopen(optarg, "r");
             if (pvfile == NULL) {
                 fprintf(stderr, "Error: File could not be opened.\n");
                 return -1;
             }
             priv = true;
             break;
-	}
+        }
         default: {
             help = true;
             break;
@@ -66,7 +66,8 @@ int main(int argc, char **argv) {
     /* help message */
     if (help == true) {
         fprintf(stderr, "SYNOPSIS\n");
-        fprintf(stderr, "  Decrypts data using RSA decryption, encryption done by encrypt program.\n");
+        fprintf(
+            stderr, "  Decrypts data using RSA decryption, encryption done by encrypt program.\n");
         fprintf(stderr, "USAGE\n");
         fprintf(stderr, "  ./decrypt [-hvi:o:n:] [-i infile] [-o outfile] [-n pvfile]\n\n");
         fprintf(stderr, "OPTIONS\n");
@@ -83,7 +84,7 @@ int main(int argc, char **argv) {
         pvfile = fopen("rsa.priv", "r");
         if (pvfile == NULL) {
             fprintf(stderr, "Error: File could not be opened.\n");
-	    fclose(pvfile);
+            fclose(pvfile);
             fclose(infile);
             fclose(outfile);
             return -1;
@@ -98,8 +99,8 @@ int main(int argc, char **argv) {
 
     /* verbose output if enabled */
     if (verbose == true) {
-	gmp_fprintf(stderr, "public modulus (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, modn);
-	gmp_fprintf(stderr, "private key (%d bits) = %Zu\n",  mpz_sizeinbase(modn, 2) - 1, privkey);
+        gmp_fprintf(stderr, "public modulus (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, modn);
+        gmp_fprintf(stderr, "private key (%d bits) = %Zu\n", mpz_sizeinbase(modn, 2) - 1, privkey);
     }
 
     /* decrypt file */
