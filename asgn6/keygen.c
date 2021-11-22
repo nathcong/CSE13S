@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         case 's': {
             uiarg = atoi(optarg);
             if (uiarg <= 0 || uiarg > ULLONG_MAX) {
-                fprintf(stderr, "Invalid value, reverting to default seed (time(NULL)).");
+                fprintf(stderr, "Invalid value, reverting to default seed (time(NULL)).\n");
             } else {
                 seed = uiarg;
             }
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
         case 'i': {
             uiarg = atoi(optarg);
             if (uiarg <= 0 || uiarg > ULLONG_MAX) {
-                fprintf(stderr, "Invalid value, reverting to default iterations (50).");
+                fprintf(stderr, "Invalid value, reverting to default iterations (50).\n");
             } else {
                 iters = uiarg;
             }
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
         case 'b': {
             uiarg = atoi(optarg);
             if (uiarg <= 0) {
-                fprintf(stderr, "Invalid value, reverting to default number of bits (256).");
+                fprintf(stderr, "Invalid value, reverting to default number of bits (256).\n");
             } else {
                 nbits = uiarg;
             }
