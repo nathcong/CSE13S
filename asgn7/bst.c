@@ -19,4 +19,3 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak);
 void bst_print(Node *root);
 
 void bst_delete(Node **root);
-

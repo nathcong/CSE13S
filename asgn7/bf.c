@@ -4,12 +4,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-
 struct BloomFilter {
-	uint64_t primary[2];
-	uint64_t secondary[2];
-	uint64_t tertiary[2];
-	BitVector *filter;
+    uint64_t primary[2];
+    uint64_t secondary[2];
+    uint64_t tertiary[2];
+    BitVector *filter;
 };
 
 BloomFilter *bf_create(uint32_t size);
@@ -25,4 +24,3 @@ bool bf_probe(BloomFilter *bf, char *oldspeak);
 uint32_t bf_count(BloomFilter *bf);
 
 void bf_print(BloomFilter *bf);
-

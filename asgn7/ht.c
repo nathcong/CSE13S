@@ -6,9 +6,9 @@
 uint64_t lookups;
 
 struct HashTable {
-	uint64_t salt[2];
-	uint32_t size;
-	Node **trees;
+    uint64_t salt[2];
+    uint32_t size;
+    Node **trees;
 };
 
 HashTable *ht_create(uint32_t size);
@@ -28,5 +28,3 @@ double ht_avg_bst_size(HashTable *ht);
 double ht_avg_bst_height(HashTable *ht);
 
 void ht_print(HashTable *ht);
-
-
