@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 struct BitVector {
     uint32_t length;
