@@ -43,7 +43,7 @@ uint32_t bv_length(BitVector *bv) {
 }
 
 bool bv_set_bit(BitVector *bv, uint32_t i) {
-    if (i < length) {
+    if (i < bv->length) {
         bv->vector[i / 8] |= (1 << (i % 8));
         return true;
     } else {
@@ -52,7 +52,7 @@ bool bv_set_bit(BitVector *bv, uint32_t i) {
 }
 
 bool bv_clr_bit(BitVector *bv, uint32_t i) {
-    if (i < length) {
+    if (i < bv->length) {
         bv->vector[i / 8] &= (0 << (i % 8));
         return true;
     } else {
@@ -61,7 +61,7 @@ bool bv_clr_bit(BitVector *bv, uint32_t i) {
 }
 
 bool bv_get_bit(BitVector *bv, uint32_t i) {
-    if (i < length) {
+    if (i < bv->length) {
         uint8_t retrieved_bit = ((bv->vector[i / 8]) >> i % 8) & 1;
         if (retrieved_bit == 1) {
             return true;
@@ -74,7 +74,7 @@ bool bv_get_bit(BitVector *bv, uint32_t i) {
 }
 
 void bv_print(BitVector *bv) {
-    for (uint32_t i = 0; i < length; i++) {
+    for (uint32_t i = 0; i < bv->length; i++) {
         if (bv_get_bit() == 1) {
             fprintf(stderr, "1\n");
         } else {
