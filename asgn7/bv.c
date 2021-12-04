@@ -75,7 +75,7 @@ bool bv_get_bit(BitVector *bv, uint32_t i) {
 
 void bv_print(BitVector *bv) {
     for (uint32_t i = 0; i < bv->length; i++) {
-        if (bv_get_bit() == 1) {
+        if (bv_get_bit(bv, i) == 1) {
             fprintf(stderr, "1\n");
         } else {
             fprintf(stderr, "0\n");
