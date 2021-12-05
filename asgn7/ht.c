@@ -57,23 +57,22 @@ Node *ht_lookup(HashTable *ht, char *oldspeak) {
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
     uint32_t hash_index = hash(ht->salt, oldspeak) % ht->size;
-    if (ht->trees[hash_index] != NULL) {
+    if (ht->tree[hash_index] != NULL) {
         bst_insert(ht->trees[hash_index], oldspeak, newspeak);
-    }
     else {
 	bst_create();
-	bst_insert(ht->trees[hash_index], oldspeak, newspeak);
-    } 
+    	bst_insert(ht->trees[hash_index], oldspeak, newspeak);
+    }
 }
 
 uint32_t ht_count(HashTable *ht) {
-    uint32_t size = 0;
+    uint32_t count = 0;
     for (uint32_t i = 0; i < ht->size; i++) {
         if (ht->trees[i] != NULL) {
-            size++;
+            count++;
         }
     }
-    return size;
+    return count;
 }
 
 double ht_avg_bst_size(HashTable *ht) {
