@@ -52,7 +52,7 @@ Node *ht_lookup(HashTable *ht, char *oldspeak) {
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
     uint32_t hash_index = hash(ht->salt, oldspeak) % ht->size;
-    bst_insert(ht->trees[hash_index], oldspeak, newspeak);
+    ht->trees[hash_index] = bst_insert(ht->trees[hash_index], oldspeak, newspeak);
     lookups++;
 }
 
