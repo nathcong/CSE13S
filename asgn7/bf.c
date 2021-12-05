@@ -4,6 +4,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 struct BloomFilter {
     uint64_t primary[2];
