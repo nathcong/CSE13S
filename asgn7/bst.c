@@ -50,13 +50,17 @@ Node *bst_find(Node *root, char *oldspeak) {
 }
 
 Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
-    if (root && bst_find(root, oldspeak) == NULL) {
+    if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
             root->left = bst_insert(root->left, oldspeak, newspeak);
         }
         if (strcmp(root->oldspeak, oldspeak) < 0) {
             root->right = bst_insert(root->right, oldspeak, newspeak);
         }
+	if (strcmp(root->oldspeak, oldspeak) == 0) {
+	    Node *null = NULL;
+            return null;
+	}
     } else {
         Node *null = NULL;
         return null;
