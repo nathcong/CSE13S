@@ -40,23 +40,51 @@ uint32_t ht_size(HashTable *ht) {
 }
 
 Node *ht_lookup(HashTable *ht, char *oldspeak) {
-	
+	uint32_t hash_index = hash(bf->salt, oldspeak);
+	if (bst_find(ht->trees[hash_index], oldspeak) != NULL) {
+		return bst_find(ht->trees[hash_index], oldspeak);
+	}
+	else {
+		Node *null = NULL;
+		return null;
+	}	
 }
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
-
+	uint32_t hash_index = hash(bf->salt, oldspeak);
+	bst_insert(ht->trees[hash_index], oldspeak, newspeak);
 }
 
 uint32_t ht_count(HashTable *ht) {
-
+	uint32_t size = 0;
+	for (uint32_t i = 0; i < ht->size; i++) {
+		if (ht->trees[i] != NULL) {
+			size++;	
+		}
+	}
+	return size;
 }
 
 double ht_avg_bst_size(HashTable *ht) {
-
+	double total_size = 0;
+	double total_trees = ht_count(ht);
+	for (uint32_t i = 0; i < ht->size; i++) {
+                if (ht->trees[i] != NULL) {
+                        total_size += bst_size(ht->trees[i]);
+                }
+        }
+	return (total_size / total_trees);
 }
 
 double ht_avg_bst_height(HashTable *ht) {
-
+	double total_height = 0;
+        double total_trees = ht_count(ht);
+        for (uint32_t i = 0; i < ht->size; i++) {
+                if (ht->trees[i] != NULL) {
+                        total_height += bst_height(ht->trees[i]);
+                }
+        }
+        return (total_height / total_trees);
 }
 
 void ht_print(HashTable *ht) {
