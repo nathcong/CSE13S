@@ -62,6 +62,7 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
         }
     } else {
         return node_create(oldspeak, newspeak);
+    }
 }
 
 void bst_print(Node *root) {
