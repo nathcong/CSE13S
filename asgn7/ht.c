@@ -1,7 +1,12 @@
 #include "bst.h"
 #include "ht.h"
+#include "speck.h"
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 uint64_t lookups;
 
@@ -15,7 +20,7 @@ HashTable *ht_create(uint32_t size) {
 	HashTable *ht = (HashTable *) malloc(sizeof(HashTable));
 	if (ht) {
 		ht->salt[0] = SALT_HASHTABLE_LO;
-		ht->size[1] = SALT_HASHTABLE_HI;
+		ht->salt[1] = SALT_HASHTABLE_HI;
 		ht->size = size;
 		ht->trees = (Node **) calloc(size, sizeof(Node *));
 		if (!ht->trees) {
