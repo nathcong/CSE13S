@@ -40,7 +40,7 @@ uint32_t ht_size(HashTable *ht) {
 }
 
 Node *ht_lookup(HashTable *ht, char *oldspeak) {
-
+	
 }
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
@@ -61,8 +61,9 @@ double ht_avg_bst_height(HashTable *ht) {
 
 void ht_print(HashTable *ht) {
 	for (uint32_t i = 0; i < ht->size; i++) {
-		if (ht->trees[i] != NULL) {
-			;
+		if (ht->trees[i] != NULL)
+			bst_print(ht->trees[i]);
+			fprintf(stderr, "\n")
 		}
 	}
 }
