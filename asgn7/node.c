@@ -28,10 +28,10 @@ void node_delete(Node **n) {
 
 void node_print(Node *n) {
     if (n) {
-	if (oldspeak && newspeak) {
+	if (n->oldspeak && n->newspeak) {
         	fprintf(stderr, "%s -> %s\n", n->oldspeak, n->newspeak);
 	}
-	if (newspeak == NULL) {
+	if (n->newspeak == NULL) {
 		fprintf(stderr, "%s\n", n->oldspeak);
 	}
 	node_print(n->left);
