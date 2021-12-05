@@ -45,9 +45,9 @@ uint32_t bf_size(BloomFilter *bf) {
 }
 
 void bf_insert(BloomFilter *bf, char *oldspeak) {
-    uint32_t primary_hash = hash(bf->primary, oldspeak);
-    uint32_t secondary_hash = hash(bf->secondary, oldspeak);
-    uint32_t tertiary_hash = hash(bf->tertiary, oldspeak);
+    uint32_t primary_hash = hash(bf->primary, oldspeak) % bv_length(bf->filter);
+    uint32_t secondary_hash = hash(bf->secondary, oldspeak) % bv_length(bf->filter);
+    uint32_t tertiary_hash = hash(bf->tertiary, oldspeak) % bv_length(bf->filter);
 
     bv_set_bit(bf->filter, primary_hash);
     bv_set_bit(bf->filter, secondary_hash);
@@ -56,9 +56,9 @@ void bf_insert(BloomFilter *bf, char *oldspeak) {
 }
 
 bool bf_probe(BloomFilter *bf, char *oldspeak) {
-    uint32_t primary_hash = hash(bf->primary, oldspeak);
-    uint32_t secondary_hash = hash(bf->secondary, oldspeak);
-    uint32_t tertiary_hash = hash(bf->tertiary, oldspeak);
+    uint32_t primary_hash = hash(bf->primary, oldspeak) % bv_length(bf->filter);
+    uint32_t secondary_hash = hash(bf->secondary, oldspeak) % bv_length(bf->filter);
+    uint32_t tertiary_hash = hash(bf->tertiary, oldspeak) % bv_length(bf->filter);
 
     if ((bv_get_bit(bf->filter, primary_hash) == true)
         && (bv_get_bit(bf->filter, secondary_hash) == true)
