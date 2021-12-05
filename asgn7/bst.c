@@ -52,20 +52,16 @@ Node *bst_find(Node *root, char *oldspeak) {
 Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
     if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
-            return bst_insert(root->left, oldspeak, newspeak);
+            root->left = bst_insert(root->left, oldspeak, newspeak);
         }
         if (strcmp(root->oldspeak, oldspeak) < 0) {
-            return bst_insert(root->right, oldspeak, newspeak);
+            root->right = bst_insert(root->right, oldspeak, newspeak);
         }
         if (strcmp(root->oldspeak, oldspeak) == 0) {
-            Node *null = NULL;
-            return null;
+            return NULL;
         }
     } else {
-        Node *null = NULL;
-        return null;
-    }
-    return root;
+        return node_create(oldspeak, newspeak);
 }
 
 void bst_print(Node *root) {
