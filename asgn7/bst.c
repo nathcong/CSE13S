@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define max(a,b) ((a) >(b) ? (a) :(b))
+
 uint64_t branches;
 
 static uint32_t size;
@@ -37,7 +39,7 @@ uint32_t bst_size(Node *root) {
 Node *bst_find(Node *root, char *oldspeak) {
 	if (root) {
 		if (strcmp(root->oldspeak, oldspeak) < 0) {
-			return bst_find(root->left, oldpseak);
+			return bst_find(root->left, oldspeak);
 		}	
 		if (strcmp(root->oldspeak, oldspeak) > 0) {
 			return bst_find(root->right, oldspeak);
