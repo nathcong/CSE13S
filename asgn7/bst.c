@@ -29,9 +29,7 @@ uint32_t bst_height(Node *root) {
 uint32_t bst_size(Node *root) {
     size = 0;
     if (root) {
-        bst_size(root->left);
-        bst_size(root->right);
-        size++;
+        size = 1 + bst_size(root->left) + bst_size(root->right);
     }
     return size;
 }
