@@ -46,24 +46,14 @@ uint32_t ht_size(HashTable *ht) {
 
 Node *ht_lookup(HashTable *ht, char *oldspeak) {
     uint32_t hash_index = hash(ht->salt, oldspeak) % ht->size;
-    if (ht->trees[hash_index] != NULL) {
-	return bst_find(ht->trees[hash_index], oldspeak);
-    }
-    else {
-	Node *null = NULL;
-        return null;
-    }
+    return bst_find(ht->trees[hash_index], oldspeak);
+    lookups++;
 }
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
     uint32_t hash_index = hash(ht->salt, oldspeak) % ht->size;
-    if (ht->trees[hash_index] != NULL) {
-        bst_insert(ht->trees[hash_index], oldspeak, newspeak);
-    }
-    else {
-	bst_create();
-    	bst_insert(ht->trees[hash_index], oldspeak, newspeak);
-    }
+    bst_insert(ht->trees[hash_index], oldspeak, newspeak);
+    lookups++;
 }
 
 uint32_t ht_count(HashTable *ht) {
