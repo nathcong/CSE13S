@@ -9,29 +9,37 @@
 
 uint64_t branches;
 
+static uint32_t size;
+static uint32_t height;
+
 Node *bst_create(void) {
-	
+	return NULL;
 }
 
 uint32_t bst_height(Node *root) {
+	height = 0;
 	if (root) {
-		return 1 + max(bst_height(root->left), bst_height(root->right));	
+		height = 1 + max(bst_height(root->left), bst_height(root->right));	
 	}
-	else {
-		return 0;
-	}
+	return height;
 }
 
 uint32_t bst_size(Node *root) {
-	
+	size = 0;
+	if (root) {
+		bst_size(root->left);
+		bst_size(root->right);
+		size++;	
+	}
+	return size;
 }
 
 Node *bst_find(Node *root, char *oldspeak) {
 	if (root) {
-		if (strcmp(root->oldspeak) > strcmp(oldspeak)) {
+		if (strcmp(root->oldspeak, oldspeak) < 0) {
 			return bst_find(root->left, oldpseak);
 		}	
-		if (strcmp(root->oldspeak) < strcmp(oldspeak)) {
+		if (strcmp(root->oldspeak, oldspeak) > 0) {
 			return bst_find(root->right, oldspeak);
 		}
 	}
@@ -44,10 +52,10 @@ Node *bst_find(Node *root, char *oldspeak) {
 
 Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
 	if (root && bst_find(root, oldspeak) != NULL) {
-		if (strcmp(root->oldspeak) > strcmp(oldspeak)) {
+		if (strcmp(root->oldspeak, oldspeak) < 0) {
                         root->left = bst_insert(root->left, oldspeak, newspeak);
                 }
-                if (strcmp(root->oldspeak) < strcmp(oldspeak)) {
+                if (strcmp(root->oldspeak, oldspeak) > 0) {
                         root->right = bst_insert(root->right, oldspeak, newspeak);
                 }
 	}
