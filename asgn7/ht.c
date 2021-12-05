@@ -46,7 +46,13 @@ uint32_t ht_size(HashTable *ht) {
 
 Node *ht_lookup(HashTable *ht, char *oldspeak) {
     uint32_t hash_index = hash(ht->salt, oldspeak) % ht->size;
-    return bst_find(ht->trees[hash_index], oldspeak);
+    if (ht->trees[hash_index] != NULL) {
+	return bst_find(ht->trees[hash_index], oldspeak);
+    }
+    else {
+	Node *null = NULL;
+        return null;
+    }
 }
 
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
