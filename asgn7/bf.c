@@ -71,6 +71,7 @@ bool bf_probe(BloomFilter *bf, char *oldspeak) {
 
 uint32_t bf_count(BloomFilter *bf) {
     return count;
+}
 
 void bf_print(BloomFilter *bf) {
     bv_print(bf->filter);
