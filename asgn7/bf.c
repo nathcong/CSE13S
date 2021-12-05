@@ -68,11 +68,11 @@ bool bf_probe(BloomFilter *bf, char *oldspeak) {
 
 uint32_t bf_count(BloomFilter *bf) {
     uint32_t count = 0;
-     for (uint32_t i = 0; i < bf->size; i++) {
+    for (uint32_t i = 0; i < bv_length(bf->filter); i++) {
         if (bv_get_bit(bf->filter, i) == true) {
             count++;
         }
-
+    }
 }
 
 void bf_print(BloomFilter *bf) {
