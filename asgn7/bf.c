@@ -1,6 +1,7 @@
 #include "bv.h"
 #include "bf.h"
 #include "salts.h"
+#include "speck.h"
 
 #include <stdbool.h>
 #include <stdint.h>
