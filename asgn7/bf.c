@@ -15,8 +15,6 @@ struct BloomFilter {
     BitVector *filter;
 };
 
-static uint32_t count = 0;
-
 BloomFilter *bf_create(uint32_t size) {
     BloomFilter *bf = (BloomFilter *) malloc(sizeof(BloomFilter));
     if (bf) {
@@ -52,7 +50,6 @@ void bf_insert(BloomFilter *bf, char *oldspeak) {
     bv_set_bit(bf->filter, primary_hash);
     bv_set_bit(bf->filter, secondary_hash);
     bv_set_bit(bf->filter, tertiary_hash);
-    count += 3;
 }
 
 bool bf_probe(BloomFilter *bf, char *oldspeak) {
@@ -70,6 +67,12 @@ bool bf_probe(BloomFilter *bf, char *oldspeak) {
 }
 
 uint32_t bf_count(BloomFilter *bf) {
+    uint32_t count = 0;
+    for (uint32_t i = 0; i < bv_length(bf->filter); i++) {
+        if (bv_get_bit(bf->filter, i) == true) {
+            count++;
+        }
+    }
     return count;
 }
 
