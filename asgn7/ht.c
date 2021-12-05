@@ -59,7 +59,7 @@ void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
 uint32_t ht_count(HashTable *ht) {
     uint32_t count = 0;
     for (uint32_t i = 0; i < ht->size; i++) {
-        if (ht->trees[i] != NULL) {
+        if (bst_size(ht->trees[i]) != 0) {
             count++;
         }
     }
