@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <regex.h>
 #define OPTIONS        "hst:f:"
-#define REG_EXPRESSION "[A-Za-z0-9_]+('|-)[A-Za-z0-9_]+)*"
+#define REG_EXPRESSION "[A-Za-z0-9_]+(('|-)[A-Za-z0-9_]+)*"
 
 int main(int argc, char **argv) {
     int opt = 0;
