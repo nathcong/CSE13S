@@ -139,8 +139,8 @@ int main(int argc, char **argv) {
         fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size(ht));
         fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height(ht));
         fprintf(stdout, "Average branches traversed: %lf\n", avg_branches);
-        fprintf(stdout, "Hash table load: %lf\n", hash_load);
-        fprintf(stdout, "Bloom filter load: %lf\n", bloom_load);
+        fprintf(stdout, "Hash table load: %lf%%\n", hash_load);
+        fprintf(stdout, "Bloom filter load: %lf%%\n", bloom_load);
     }
 
     /* otherwise, print required message */
