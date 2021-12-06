@@ -121,23 +121,25 @@ int main(int argc, char **argv) {
             Node *temp = ht_lookup(ht, word);
             /* if word exists in hash table and has newspeak equivalent (counseling) */
             if (temp != NULL && temp->newspeak != NULL) {
-                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
+                mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
             }
             /* if word exists in hash table and has no newspeak equivalent (thoughtcrime) */
             if (temp != NULL && temp->newspeak == NULL) {
-		mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
+		bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
             }
         }
     }
 
     /* if stats is enabled, print and exit */
     if (stats == true) {
-	
-        fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size);
-	fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height);
-	fprintf(stdout, "Average branches traversed: %lf\n", );
-	fprintf(stdout, "Hash table load: %lf\n", );
-	fprintf(stdout, "Bloom filter load: %lf\n", );
+	double avg_branches = branches / lookups;
+	double hash_load = 100 * (ht_count(ht) / ht_size(ht));
+	double bloom_load = 100 * (bf_count(bf) / bf_size(bf));
+        fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size(ht));
+	fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height(ht));
+	fprintf(stdout, "Average branches traversed: %lf\n", avg_branches);
+	fprintf(stdout, "Hash table load: %lf\n", hash_load);
+	fprintf(stdout, "Bloom filter load: %lf\n", bloom_load);
     }
 
     /* otherwise, print required message */
