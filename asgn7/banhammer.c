@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <regex.h>
 #define OPTIONS        "hst:f:"
-#define REG_EXPRESSION "[A-Za-z0-9_]+((`1-)[A-Za-z0-9_]+)*"
+#define REG_EXPRESSION "[A-Za-z0-9_]+(('|-)[A-Za-z0-9_]+)*"
 
 int main(int argc, char **argv) {
     int opt = 0;
@@ -131,17 +131,17 @@ int main(int argc, char **argv) {
     }
 
     /* if stats is enabled, print and exit */
-    //if (stats == true) {
+    if (stats == true) {
 	
-        //fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size);
-	//fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height);
-	//fprintf(stdout, "Average branches traversed: %lf\n", );
-	//fprintf(stdout, "Hash table load: %lf\n", );
-	//fprintf(stdout, "Bloom filter load: %lf\n", );
-    //}
+        fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size);
+	fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height);
+	fprintf(stdout, "Average branches traversed: %lf\n", );
+	fprintf(stdout, "Hash table load: %lf\n", );
+	fprintf(stdout, "Bloom filter load: %lf\n", );
+    }
 
     /* otherwise, print required message */
-    //else {
+    else {
         /* if only counseling is required */
         if (bst_size(mixed) > 0 && bst_size(bad) == 0) {
             fprintf(stdout, "%s", goodspeak_message);
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
             bst_print(bad);
             bst_print(mixed);
         }
-    //}
+    }
 
     /* free memory */
     bst_delete(&bad);
