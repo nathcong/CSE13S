@@ -15,6 +15,7 @@ struct BloomFilter {
     BitVector *filter;
 };
 
+/* create new bloom filter */
 BloomFilter *bf_create(uint32_t size) {
     BloomFilter *bf = (BloomFilter *) malloc(sizeof(BloomFilter));
     if (bf) {
@@ -29,6 +30,7 @@ BloomFilter *bf_create(uint32_t size) {
     return bf;
 }
 
+/* free memory and delete bloom filer */
 void bf_delete(BloomFilter **bf) {
     if (*bf && (*bf)->filter) {
         bv_delete(&(*bf)->filter);
@@ -38,10 +40,12 @@ void bf_delete(BloomFilter **bf) {
     return;
 }
 
+/* return size of bloom filter */
 uint32_t bf_size(BloomFilter *bf) {
     return bv_length(bf->filter);
 }
 
+/* insert new word into bloomfilter bit vector */
 void bf_insert(BloomFilter *bf, char *oldspeak) {
     uint32_t primary_hash = hash(bf->primary, oldspeak) % bv_length(bf->filter);
     uint32_t secondary_hash = hash(bf->secondary, oldspeak) % bv_length(bf->filter);
@@ -52,6 +56,7 @@ void bf_insert(BloomFilter *bf, char *oldspeak) {
     bv_set_bit(bf->filter, tertiary_hash);
 }
 
+/* check if a word was most likely put into bloom filter */
 bool bf_probe(BloomFilter *bf, char *oldspeak) {
     uint32_t primary_hash = hash(bf->primary, oldspeak) % bv_length(bf->filter);
     uint32_t secondary_hash = hash(bf->secondary, oldspeak) % bv_length(bf->filter);
@@ -66,6 +71,7 @@ bool bf_probe(BloomFilter *bf, char *oldspeak) {
     }
 }
 
+/* count set bits in bloom filter bit vector */
 uint32_t bf_count(BloomFilter *bf) {
     uint32_t count = 0;
     for (uint32_t i = 0; i < bv_length(bf->filter); i++) {
@@ -76,6 +82,7 @@ uint32_t bf_count(BloomFilter *bf) {
     return count;
 }
 
+/* print bloom filter bit vector */
 void bf_print(BloomFilter *bf) {
     bv_print(bf->filter);
 }

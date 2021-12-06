@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
+/* create new node */
 Node *node_create(char *oldspeak, char *newspeak) {
     Node *n = (Node *) malloc(sizeof(Node));
     if (n) {
@@ -19,6 +20,7 @@ Node *node_create(char *oldspeak, char *newspeak) {
     return n;
 }
 
+/* free memory and delete node */
 void node_delete(Node **n) {
     free((*n)->oldspeak);
     free((*n)->newspeak);
@@ -27,6 +29,7 @@ void node_delete(Node **n) {
     return;
 }
 
+/* print node along with its oldspeak, newspeak, and children */
 void node_print(Node *n) {
     if (n) {
         if (n->oldspeak && n->newspeak) {

@@ -14,10 +14,12 @@ uint64_t branches;
 static uint32_t size;
 static uint32_t height;
 
+/* create new bst */
 Node *bst_create(void) {
     return NULL;
 }
 
+/* return height of bst (depth level of tree) */
 uint32_t bst_height(Node *root) {
     height = 0;
     if (root) {
@@ -26,6 +28,7 @@ uint32_t bst_height(Node *root) {
     return height;
 }
 
+/* return size of bst (all nodes in tree) */
 uint32_t bst_size(Node *root) {
     size = 0;
     if (root) {
@@ -34,6 +37,7 @@ uint32_t bst_size(Node *root) {
     return size;
 }
 
+/* find node with specific oldspeak in bst with root node */
 Node *bst_find(Node *root, char *oldspeak) {
     if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
@@ -51,6 +55,7 @@ Node *bst_find(Node *root, char *oldspeak) {
     return root;
 }
 
+/* insert new node into bst with root node */
 Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
     if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
@@ -68,6 +73,7 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
     }
 }
 
+/* print bst with in order transversal */
 void bst_print(Node *root) {
     if (root) {
         bst_print(root->left);
