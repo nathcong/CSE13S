@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <regex.h>
 #define OPTIONS        "hst:f:"
-#define REG_EXPRESSION "[A-Za-z0-9_]+(('|-)[A-Za-z0-9_]+)*"
+#define REG_EXPRESSION "[A-Za-z0-9_]+('|-)[A-Za-z0-9_]+)*"
 
 int main(int argc, char **argv) {
     int opt = 0;
@@ -125,21 +125,22 @@ int main(int argc, char **argv) {
             }
             /* if word exists in hash table and has no newspeak equivalent (thoughtcrime) */
             if (temp != NULL && temp->newspeak == NULL) {
-		bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
+                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
             }
         }
     }
 
     /* if stats is enabled, print and exit */
     if (stats == true) {
-	double avg_branches = branches / lookups;
-	double hash_load = 100 * (ht_count(ht) / ht_size(ht));
-	double bloom_load = 100 * (bf_count(bf) / bf_size(bf));
+        double avg_branches = branches / lookups;
+        double hash_load = 100 * (ht_count(ht) / ht_size(ht));
+        double bloom_load = 100 * (bf_count(bf) / bf_size(bf));
+
         fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size(ht));
-	fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height(ht));
-	fprintf(stdout, "Average branches traversed: %lf\n", avg_branches);
-	fprintf(stdout, "Hash table load: %lf\n", hash_load);
-	fprintf(stdout, "Bloom filter load: %lf\n", bloom_load);
+        fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height(ht));
+        fprintf(stdout, "Average branches traversed: %lf\n", avg_branches);
+        fprintf(stdout, "Hash table load: %lf\n", hash_load);
+        fprintf(stdout, "Bloom filter load: %lf\n", bloom_load);
     }
 
     /* otherwise, print required message */
