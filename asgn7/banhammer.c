@@ -132,9 +132,9 @@ int main(int argc, char **argv) {
 
     /* if stats is enabled, print and exit */
     if (stats == true) {
-        double avg_branches = branches / lookups;
-        double hash_load = 100 * (ht_count(ht) / ht_size(ht));
-        double bloom_load = 100 * (bf_count(bf) / bf_size(bf));
+        double avg_branches = ((double) branches / lookups);
+        double hash_load = 100 * ((double) ht_count(ht) / ht_size(ht));
+        double bloom_load = 100 * ((double) bf_count(bf) / bf_size(bf));
 
         fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size(ht));
         fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height(ht));
