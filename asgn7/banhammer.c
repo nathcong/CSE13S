@@ -157,8 +157,8 @@ int main(int argc, char **argv) {
         /* if both thoughtcrime and counseling are detected */
         if (bst_size(mixed) > 0 && bst_size(bad) > 0) {
             fprintf(stdout, "%s", mixspeak_message);
-            bst_print(bad);
             bst_print(mixed);
+            bst_print(bad);
         }
     }
 
