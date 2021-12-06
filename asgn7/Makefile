@@ -3,7 +3,7 @@ SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:%.c=%.o)
 
 CC = clang
-CFLAGS = -Wall -Wpedantic -Werror -Wextra -O2
+CFLAGS = -Wall -Wpedantic -Werror -Wextra -O2 -g
 LDFLAGS = -lm
 
 all: $(EXEC)

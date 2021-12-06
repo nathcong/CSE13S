@@ -121,22 +121,27 @@ int main(int argc, char **argv) {
             Node *temp = ht_lookup(ht, word);
             /* if word exists in hash table and has newspeak equivalent (counseling) */
             if (temp != NULL && temp->newspeak != NULL) {
-                mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
+                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
             }
             /* if word exists in hash table and has no newspeak equivalent (thoughtcrime) */
             if (temp != NULL && temp->newspeak == NULL) {
-                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
+		mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
             }
         }
     }
 
     /* if stats is enabled, print and exit */
-    if (stats == true) {
-        ;
-    }
+    //if (stats == true) {
+	
+        //fprintf(stdout, "Average BST size: %lf\n", ht_avg_bst_size);
+	//fprintf(stdout, "Average BST height: %lf\n", ht_avg_bst_height);
+	//fprintf(stdout, "Average branches traversed: %lf\n", );
+	//fprintf(stdout, "Hash table load: %lf\n", );
+	//fprintf(stdout, "Bloom filter load: %lf\n", );
+    //}
 
     /* otherwise, print required message */
-    else {
+    //else {
         /* if only counseling is required */
         if (bst_size(mixed) > 0 && bst_size(bad) == 0) {
             fprintf(stdout, "%s", goodspeak_message);
@@ -153,5 +158,12 @@ int main(int argc, char **argv) {
             bst_print(bad);
             bst_print(mixed);
         }
-    }
+    //}
+
+    /* free memory */
+    bst_delete(&bad);
+    bst_delete(&mixed);
+    ht_delete(&ht);
+    bf_delete(&bf);
+    regfree(&regex);
 }

@@ -59,7 +59,8 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
         }
         return root;
     } else {
-        return node_create(oldspeak, newspeak);
+        root = node_create(oldspeak, newspeak);
+	return root;
     }
 }
 

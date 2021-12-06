@@ -33,7 +33,12 @@ HashTable *ht_create(uint32_t size) {
 
 void ht_delete(HashTable **ht) {
     if (*ht && (*ht)->trees) {
-        free((*ht)->trees);
+        for (uint32_t i = 0; i < (*ht)->size; i++) {
+		if ((*ht)->trees[i] != NULL) {
+			bst_delete(&(*ht)->trees[i]);
+		}
+	}
+	free((*ht)->trees);
         free(*ht);
         *ht = NULL;
     }
