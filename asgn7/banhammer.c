@@ -121,11 +121,11 @@ int main(int argc, char **argv) {
             Node *temp = ht_lookup(ht, word);
             /* if word exists in hash table and has newspeak equivalent (counseling) */
             if (temp != NULL && temp->newspeak != NULL) {
-                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
+                mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
             }
             /* if word exists in hash table and has no newspeak equivalent (thoughtcrime) */
             if (temp != NULL && temp->newspeak == NULL) {
-                mixed = bst_insert(mixed, temp->oldspeak, temp->newspeak);
+                bad = bst_insert(bad, temp->oldspeak, temp->newspeak);
             }
         }
     }
