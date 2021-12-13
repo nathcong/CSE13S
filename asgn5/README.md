@@ -41,7 +41,7 @@ Decompresses a file using the Huffman coding algorithm.
 
 USAGE
 
-./encode [-hvi] [-i infile] [-o outfile]
+./encode [-hv] [-i infile] [-o outfile]
 
 OPTIONS
 
