@@ -29,3 +29,6 @@ OPTIONS
   -t size    Hash table size. Default size is 2 ^ 16.
   
   -f size    Bloom filter size. Default size is 2 ^ 20.
+
+## Known bugs
+banhammer.c does not print the words in an appropriate form, most liekly due to logical errors in printing the binary search trees and nodes, which were used for debugging.
