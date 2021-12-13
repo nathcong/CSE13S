@@ -20,7 +20,7 @@ Compresses a file using the Huffman coding algorithm.
 
 USAGE
 
-./encode [-hvi:o:] [-i infile] [-o outfile]
+./encode [-hv] [-i infile] [-o outfile]
 
 OPTIONS
 
@@ -41,7 +41,7 @@ Decompresses a file using the Huffman coding algorithm.
 
 USAGE
 
-./encode [-hvi:o:] [-i infile] [-o outfile]
+./encode [-hvi] [-i infile] [-o outfile]
 
 OPTIONS
 
